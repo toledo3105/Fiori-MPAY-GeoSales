@@ -1,0 +1,30 @@
+{
+    "Regions":
+        [
+            {
+                "country": "Chihuahua",
+                "code": "MX-CHH",
+                "color":"rgb(27,126,172)"
+            },
+            {
+                "country": "Yucatán",
+                "code": "MX-YUC",
+                "color":"rgb(27,126,172)"
+            },
+            {
+                "country": "CDMX",
+                "code": "MX-CMX",
+                "color":"rgb(27,126,172)"
+            },
+            {
+                "country": "Jalisco",
+                "code": "MX-JAL",
+                "color":"rgb(27,126,172)"
+            },
+            {
+                "country": "Veracruz",
+                "code": "MX-VER",
+                "color":"rgb(27,126,172)"
+            }
+        ]
+}
