@@ -1,22 +1,26 @@
-<mvc:View xmlns:f="sap.f" controllerName="geosales.geosales.controller.Dashboard"
+<mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.f" controllerName="geosales.geosales.controller.Dashboard"
     xmlns:mvc="sap.ui.core.mvc" 
     displayBlock="true"
     xmlns="sap.m"
     xmlns:vbm="sap.ui.vbm"
     xmlns:l="sap.ui.layout">
     <Page id="page" title="{i18n>title}">
+    <!-- <f:DynamicPage fitContent="true" > -->
+        <!-- <f:content> -->
         <VBox >
-            <HBox >
-            <!--<SlideTile class="sapUiTinyMarginTop sapUiTinyMarginBegin" id="tileMotos">-->
+            <HBox id="totalesProductos" renderType="Bare">
+            <SlideTile class="sapUiTinyMarginTop sapUiTinyMarginBegin" id="slideTile">
                 <GenericTile
                 headerImage="sap-icon://bus-public-transport"                
                 header="Motos"
                 subheader="Contado"
 				frameType="TwoByOne" 
-                class="sapUiTinyMarginTop sapUiTinyMarginBegin">
+                mode="ContentMode"
+                id="tileMotos"
+                class=" myIcon valueMotos">
 				<TileContent footer="Abril 18, 2024" frameType="TwoByOne">
 					<FeedContent contentText=""
-				subheader="" value="132" class="valueMotos"/>
+				subheader="" value="132" />
 				</TileContent>
 			</GenericTile>
 			<GenericTile
@@ -24,21 +28,21 @@
                 header="Pantallas"
                 subheader="Contado"
 				frameType="TwoByOne" 
-                class="sapUiTinyMarginTop sapUiTinyMarginBegin">
+                class="valuePantallas" >
 				<TileContent footer="Abril 18, 2024" frameType="TwoByOne">
 					<FeedContent contentText=""
-				subheader="" value="132" class="valuePantallas"/>
+				subheader="" value="132"/>
 				</TileContent>
 			</GenericTile>
-            <GenericTile
+        </SlideTile>
+           <!-- <GenericTile
                 headerImage="sap-icon://iphone"                
                 header="Celulares"
                 subheader="Contado"
 				frameType="TwoByOne" 
-                class="sapUiTinyMarginTop sapUiTinyMarginBegin">
+                class="sapUiTinyMarginTop sapUiTinyMarginBegin valueCelulares">
 				<TileContent footer="Abril 18, 2024" frameType="TwoByOne">
-					<FeedContent contentText=""
-				subheader="" value="132" class="valueCelulares"/>
+					<FeedContent contentText="" subheader="" value="132" />
 				</TileContent>
 			</GenericTile>
             <GenericTile
@@ -46,10 +50,10 @@
                 header="Ecommerce"
                 subheader="Contado"
 				frameType="TwoByOne" 
-                class="sapUiTinyMarginTop sapUiTinyMarginBegin">
+                class="sapUiTinyMarginTop sapUiTinyMarginBegin valueEcommerce">
 				<TileContent footer="Abril 18, 2024" frameType="TwoByOne">
 					<FeedContent contentText=""
-				subheader="" value="132" class="valueEcommerce"/>
+				subheader="" value="132" />
 				</TileContent>
 			</GenericTile>
             <GenericTile
@@ -57,29 +61,55 @@
                 header="Contado"
                 subheader="Contado"
 				frameType="TwoByOne" 
-                class="sapUiTinyMarginTop sapUiTinyMarginBegin">
+                class="sapUiTinyMarginTop sapUiTinyMarginBegin valueContado">
 				<TileContent footer="Abril 18, 2024" frameType="TwoByOne">
 					<FeedContent contentText=""
-				subheader="" value="132" class="valueContado"/>
+				subheader="" value="132" />
 				</TileContent>
-			</GenericTile>
+			</GenericTile>  -->
             <!--</SlideTile>-->
         </HBox>
         <f:Card width="40%" class="sapUiTinyMargin">
             <f:content>
-        <l:FixFlex class="fixFlexFixedSize">
-            <l:fixContent>
-				<vbm:AnalyticMap id="vbi" width="100%" height="500px" 
-				initialPosition="-101;24;0" initialZoom="5" enableAnimation="true" disableZoom="true" disablePan="true" regions="{/Regions}"
+        <l:FixFlex >
+            <l:fixContent >
+				<vbm:AnalyticMap id="vbi" width="100%" height="500px"                  
+				initialPosition="-101;24;0" initialZoom="5" disableZoom="true" disablePan="true" regions="{/Regions}"
                 regionClick="onRegionClick" regionContextMenu="onRegionContextMenu">
                 <vbm:regions>
                     <vbm:Region code="{code}" color="{color}"  tooltip="{country}"/>
-                </vbm:regions>				
+                </vbm:regions>
+                <vbm:legend>
+                    <vbm:Legend caption="Ventas Recientes"  items="{/Legend}">                       
+                    <vbm:items>                           
+                            <vbm:LegendItem  text="{text}"  color="{color}"></vbm:LegendItem>
+                    </vbm:items>
+                    </vbm:Legend>
+                </vbm:legend>	
+                <vbm:resources>
+					<vbm:Resource name="PinGreen.png"
+						src="test-resources/sap/ui/vbm/demokit/media/images/Green_Pin.png">
+					</vbm:Resource>
+                </vbm:resources>
+                <vbm:vos>
+                    <vbm:Spots >
+                        <vbm:Spot id="wdfSpot" position="-99.151884;19.441647;00"
+                                  click="onClickItem" contextMenu="onContextMenuItem"                                  
+                                  icon="sap-icon://competitor"
+                                  type="Success"/>
+                        <vbm:Spot id="wdfSpot2" position=" -88.714859;20.710297;00"
+                                  click="onClickItem" contextMenu="onContextMenuItem"                                  
+                                  icon="sap-icon://competitor"
+                                  class="pinColor" /> 
+                    </vbm:Spots>
+                </vbm:vos>
 			</vbm:AnalyticMap>
         </l:fixContent>
         </l:FixFlex>
     </f:content>
     </f:Card>
     </VBox>
-    </Page>
+<!-- </f:content> -->
+<!-- </f:DynamicPage> -->
+</Page>
 </mvc:View>

@@ -60,6 +60,10 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     background-color: #29313A;
 }
 
+.sapUiBody{
+    color: #29313A !important;
+}
+
 .sapMLIB.sapMObjLItem {
     background-color: #29313A;
     border-bottom: 1px solid #3a4552;
@@ -133,6 +137,7 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
 
 .sapMGT {
     background: #29313A;
+    border-radius: 1rem;
 }
 
 .sapMGTSubHdrTxt>.sapMText, .sapMGTSubHdrTxt {
@@ -140,26 +145,49 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
     color: #FAFAFA;
 }
 
-.valueMotos>.sapMFCValue {
+.valueMotos .sapMGTHdrIconImage {
     color: #FF5555 !important;
 }
 
-.valuePantallas>.sapMFCValue {
-    color: #7fc6c6!important;
+.valuePantallas .sapMGTHdrIconImage{
+    color: #7fc6c6 !important;
 }
 
-.valueCelulares>.sapMFCValue {
+.valueCelulares .sapMGTHdrIconImage {
     color: #FABD64!important;
 }
 
-.valuePrestamos>.sapMFCValue {
+.valuePrestamos .sapMGTHdrIconImage{
     color: #ABE2AB !important;
 }
 
-.valueEcommerce>.sapMFCValue {
+.valueEcommerce .sapMGTHdrIconImage{
     color: #8CA7D5 !important;
 }
 
-.valueContado>.sapMFCValue {
+.valueContado .sapMGTHdrIconImage{
     color: #B995E0 !important;
 }
+
+.sapMFCValue {
+    color: #FAFAFA !important;
+}
+
+.myHeadContent>.sapMGTHdrContent{
+    height: 0rem;
+}
+
+.myHeadText{
+    font-size: 1.5rem;
+}
+
+.vbi-legend{ 
+    color: #FAFAFA !important;
+    background-color: #29313A !important;
+    border-radius: 1rem;
+}
+
+.pinColor{
+    background-color: "#FF8888";
+}
+ 

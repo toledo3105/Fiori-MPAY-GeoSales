@@ -26,5 +26,27 @@
                 "code": "MX-VER",
                 "color":"rgb(27,126,172)"
             }
-        ]
+        ],
+        "Legend":
+				[
+					{
+						"text": "1500 Celulares Vendidos en Yucatán ",
+						"color": "#FABD64"
+					},
+                    {
+						"text": "1500 Pantallas Vendidas en Guerrero",
+						"color": "#B995E0"
+					},
+                    {
+						"text": "1500 Celulares Vendidas en Guerrero",
+						"color": "#B995E0"
+					},
+                    {
+						"text": "1500 Motos Vendidas en Guerrero",
+						"color": "#B995E0"
+					},{
+						"text": "1500 Préstamos Otorgados en Guerrero",
+						"color": "#B995E0"
+					}
+				]
 }

@@ -1,119 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
-        <Schema Namespace="ZGW_COMISIONES_MENUDEO_SRV" xml:lang="es" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-            <EntityType Name="hist_centro" sap:content-version="1">
+        <Schema Namespace="ZCDS_VENTAS_DASHBOARD_CDS" xml:lang="es" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ZCDS_VENTAS_DASHBOARDType" sap:label="Dashboard de ventas Dirección" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="Bukrs"/>
-                    <PropertyRef Name="Gjahr"/>
-                    <PropertyRef Name="Semana"/>
-                    <PropertyRef Name="Werks"/>
+                    <PropertyRef Name="p_date"/>
+                    <PropertyRef Name="p_date_h"/>
+                    <PropertyRef Name="p_time_l"/>
+                    <PropertyRef Name="p_time_h"/>
+                    <PropertyRef Name="Fecha"/>
+                    <PropertyRef Name="FechaBase"/>
+                    <PropertyRef Name="date_h"/>
+                    <PropertyRef Name="time_l"/>
+                    <PropertyRef Name="time_h"/>
                 </Key>
-                <Property Name="Bukrs" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Sociedad" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Gjahr" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Ejercicio" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Semana" Type="Edm.Byte" Nullable="false" sap:unicode="false" sap:label="Numero de semana" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Centro" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="MetaGlobal" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
-                <Property Name="TotalSuc" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="p_date" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Fecha"/>
+                <Property Name="p_date_h" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Fecha"/>
+                <Property Name="p_time_l" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Hora"/>
+                <Property Name="p_time_h" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Hora"/>
+                <Property Name="Fecha" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Fecha natural"/>
+                <Property Name="FechaBase" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date"/>
+                <Property Name="date_h" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date"/>
+                <Property Name="time_l" Type="Edm.Time" Nullable="false" Precision="0"/>
+                <Property Name="time_h" Type="Edm.Time" Nullable="false" Precision="0"/>
+                <NavigationProperty Name="to_Historico" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_7C90C508E703253E5B02F2BFF8414784" FromRole="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784" ToRole="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+                <NavigationProperty Name="to_Recientes" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" FromRole="FromRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" ToRole="ToRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
+                <NavigationProperty Name="to_Totales" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_ADE0167E2546184FF0C17EAD1118B487" FromRole="FromRole_assoc_ADE0167E2546184FF0C17EAD1118B487" ToRole="ToRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
+                <NavigationProperty Name="to_TotalesEstado" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_207461469B11053C9316AEF3235C5AEE" FromRole="FromRole_assoc_207461469B11053C9316AEF3235C5AEE" ToRole="ToRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
+                <NavigationProperty Name="Parameters" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_437B6923660A217609F2881681CDB526" FromRole="ToRole_assoc_437B6923660A217609F2881681CDB526" ToRole="FromRole_assoc_437B6923660A217609F2881681CDB526" sap:filterable="false"/>
             </EntityType>
-            <EntityType Name="hist_vendor" sap:content-version="1">
+            <EntityType Name="ZCDS_VENTAS_DASHBOARDParameters" sap:semantics="parameters" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="Bukrs"/>
-                    <PropertyRef Name="Gjahr"/>
-                    <PropertyRef Name="Semana"/>
-                    <PropertyRef Name="Werks"/>
-                    <PropertyRef Name="Vkgrp"/>
+                    <PropertyRef Name="p_date"/>
+                    <PropertyRef Name="p_date_h"/>
+                    <PropertyRef Name="p_time_l"/>
+                    <PropertyRef Name="p_time_h"/>
                 </Key>
-                <Property Name="Bukrs" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Sociedad" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Gjahr" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Ejercicio" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Semana" Type="Edm.Byte" Nullable="false" sap:unicode="false" sap:label="Numero de semana" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Centro" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Vkgrp" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Gr.vendedores" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Venta" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
-                <Property Name="Comision" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="p_date" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:parameter="mandatory" sap:label="Fecha" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="p_date_h" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:parameter="mandatory" sap:label="Fecha" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="p_time_l" Type="Edm.Time" Nullable="false" Precision="0" sap:parameter="mandatory" sap:label="Hora" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="p_time_h" Type="Edm.Time" Nullable="false" Precision="0" sap:parameter="mandatory" sap:label="Hora" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Set" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_437B6923660A217609F2881681CDB526" FromRole="FromRole_assoc_437B6923660A217609F2881681CDB526" ToRole="ToRole_assoc_437B6923660A217609F2881681CDB526"/>
             </EntityType>
-            <EntityType Name="report" sap:content-version="1">
+            <EntityType Name="ZCDS_VENTAS_ESTADOType" sap:label="Ventas totales por estado y por día" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="Werks"/>
-                    <PropertyRef Name="Puesto"/>
-                    <PropertyRef Name="Vkgrp"/>
-                    <PropertyRef Name="Bezei"/>
-                    <PropertyRef Name="Bukrs"/>
+                    <PropertyRef Name="Fecha"/>
+                    <PropertyRef Name="Producto"/>
                 </Key>
-                <Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Centro" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Puesto" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="30 caracteres" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="PorcBaseA" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Vkgrp" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Gr.vendedores" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Bezei" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Denominación" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="PorcMetaVendA" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Fecha" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Fecha y Hora" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMinVendA" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcBaseVendA" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="VtaAccesorios" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMeta1A" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="VtaEquipos" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMin1A" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TotalVenta" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcBase1A" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TotalAccesorios" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMetaAcce" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMetaGerA" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMinGerA" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TotalEquipos" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcBaseGerA" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMetaEquipos" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="FactorAccesorio" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="FactorEquipo" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PagoAccesorios" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PagoEquipo" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TotalPagar" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Bukrs" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Sociedad" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="Centro" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Centro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Gjahr" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Ejercicio" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
-                <Property Name="Name1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Nombre 1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Ort01" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Población" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Pstlz" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Código postal" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Semana" Type="Edm.Byte" Nullable="false" sap:unicode="false" sap:label="Numero de semana" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
-                <Property Name="MetaAccesorio" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TotalAccesorio" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="MetaEquipos" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TotalEquiposH" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="MetaGlobal" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TotalSuc" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMeta" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMin" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcBase" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMeta_a" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMin_a" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMetaVend" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMinVend" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcBaseVend" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMeta1" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMin1" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcBase1" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMetaGer" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcMinGer" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="PorcBaseGer" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fecha" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="Producto" Type="Edm.String" Nullable="false" MaxLength="9"/>
+                <Property Name="tipo_venta" Type="Edm.String" MaxLength="14"/>
+                <Property Name="ClaseVenta" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Clase de factura"/>
+                <Property Name="DescClaseVenta" Type="Edm.String" MaxLength="40" sap:label="Denominación"/>
+                <Property Name="Estado" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Región" sap:quickinfo="Región (Estado federal, &quot;land&quot;, provincia, condado)"/>
+                <Property Name="DescEstado" Type="Edm.String" MaxLength="20" sap:label="Denominación"/>
+                <Property Name="total" Type="Edm.Int32"/>
             </EntityType>
-            <EntityType Name="tiendatop" sap:content-version="1">
+            <EntityType Name="ZCDS_VENTAS_HISTType" sap:label="Hist. de Ventas por Producto y TipoVenta" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="Gjahr"/>
-                    <PropertyRef Name="Semana"/>
+                    <PropertyRef Name="Fecha"/>
+                    <PropertyRef Name="Producto"/>
                 </Key>
-                <Property Name="Gjahr" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Ejercicio" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
-                <Property Name="Semana" Type="Edm.Byte" Nullable="false" sap:unicode="false" sap:label="Numero de semana" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
-                <Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Centro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Name1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Nombre 1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TotalSuc" Type="Edm.Decimal" Nullable="false" Precision="24" Scale="3" sap:unicode="false" sap:label="Importe ML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fecha" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="Producto" Type="Edm.String" Nullable="false" MaxLength="9"/>
+                <Property Name="tipo_venta" Type="Edm.String" MaxLength="14"/>
+                <Property Name="ClaseVenta" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Clase de factura"/>
+                <Property Name="DescClaseVenta" Type="Edm.String" MaxLength="40" sap:label="Denominación"/>
+                <Property Name="total" Type="Edm.Int32"/>
             </EntityType>
-            <EntityContainer Name="ZGW_COMISIONES_MENUDEO_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
-                <EntitySet Name="hist_centroSet" EntityType="ZGW_COMISIONES_MENUDEO_SRV.hist_centro" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="hist_vendorSet" EntityType="ZGW_COMISIONES_MENUDEO_SRV.hist_vendor" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="reportSet" EntityType="ZGW_COMISIONES_MENUDEO_SRV.report" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="tiendatopSet" EntityType="ZGW_COMISIONES_MENUDEO_SRV.tiendatop" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+            <EntityType Name="ZCDS_VENTAS_REcientesType" sap:label="Ventas recientes en el tiempo" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Fecha"/>
+                    <PropertyRef Name="Hora"/>
+                </Key>
+                <Property Name="Fecha" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="Hora" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Hora" sap:quickinfo="Hora registrada"/>
+                <Property Name="Producto" Type="Edm.String" MaxLength="9"/>
+                <Property Name="tipo_venta" Type="Edm.String" MaxLength="14"/>
+                <Property Name="ClaseVenta" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Clase de factura"/>
+                <Property Name="DescClaseVenta" Type="Edm.String" MaxLength="40" sap:label="Denominación"/>
+                <Property Name="Estado" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Región" sap:quickinfo="Región (Estado federal, &quot;land&quot;, provincia, condado)"/>
+                <Property Name="DescEstado" Type="Edm.String" MaxLength="20" sap:label="Denominación"/>
+                <Property Name="total" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="ZCDS_VENTAS_TOTALESType" sap:label="Ventas totales por día" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Fecha"/>
+                    <PropertyRef Name="Producto"/>
+                </Key>
+                <Property Name="Fecha" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="Producto" Type="Edm.String" Nullable="false" MaxLength="9"/>
+                <Property Name="tipo_venta" Type="Edm.String" MaxLength="14"/>
+                <Property Name="ClaseVenta" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Clase de factura"/>
+                <Property Name="DescClaseVenta" Type="Edm.String" MaxLength="40" sap:label="Denominación"/>
+                <Property Name="total" Type="Edm.Int32"/>
+            </EntityType>
+            <Association Name="assoc_437B6923660A217609F2881681CDB526" sap:content-version="1">
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDParameters" Multiplicity="1" Role="FromRole_assoc_437B6923660A217609F2881681CDB526"/>
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="*" Role="ToRole_assoc_437B6923660A217609F2881681CDB526"/>
+            </Association>
+            <Association Name="assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" sap:content-version="1">
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_REcientesType" Multiplicity="*" Role="ToRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
+            </Association>
+            <Association Name="assoc_ADE0167E2546184FF0C17EAD1118B487" sap:content-version="1">
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_TOTALESType" Multiplicity="*" Role="ToRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
+            </Association>
+            <Association Name="assoc_207461469B11053C9316AEF3235C5AEE" sap:content-version="1">
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_ESTADOType" Multiplicity="*" Role="ToRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
+            </Association>
+            <Association Name="assoc_7C90C508E703253E5B02F2BFF8414784" sap:content-version="1">
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_HISTType" Multiplicity="*" Role="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+            </Association>
+            <EntityContainer Name="ZCDS_VENTAS_DASHBOARD_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZCDS_VENTAS_DASHBOARDSet" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_VENTAS_DASHBOARD" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDParameters" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_VENTAS_ESTADO" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_ESTADOType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_VENTAS_HIST" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_HISTType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_VENTAS_REcientes" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_REcientesType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_VENTAS_TOTALES" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_TOTALESType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_ADE0167E2546184FF0C17EAD1118B487" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_ADE0167E2546184FF0C17EAD1118B487" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
+                    <End EntitySet="ZCDS_VENTAS_TOTALES" Role="ToRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
+                    <End EntitySet="ZCDS_VENTAS_REcientes" Role="ToRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_437B6923660A217609F2881681CDB526" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_437B6923660A217609F2881681CDB526" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_VENTAS_DASHBOARD" Role="FromRole_assoc_437B6923660A217609F2881681CDB526"/>
+                    <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="ToRole_assoc_437B6923660A217609F2881681CDB526"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_7C90C508E703253E5B02F2BFF8414784" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_7C90C508E703253E5B02F2BFF8414784" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+                    <End EntitySet="ZCDS_VENTAS_HIST" Role="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_207461469B11053C9316AEF3235C5AEE" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_207461469B11053C9316AEF3235C5AEE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
+                    <End EntitySet="ZCDS_VENTAS_ESTADO" Role="ToRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
+                </AssociationSet>
             </EntityContainer>
-            <atom:link rel="self" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZGW_COMISIONES_MENUDEO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
-            <atom:link rel="latest-version" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZGW_COMISIONES_MENUDEO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <Annotations Target="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARD_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARD_CDS_Entities/ZCDS_VENTAS_DASHBOARD" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>p_date</PropertyPath>
+                                <PropertyPath>p_date_h</PropertyPath>
+                                <PropertyPath>p_time_l</PropertyPath>
+                                <PropertyPath>p_time_h</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <!-- <Record> -->
+                                    <!-- <PropertyValue Property="NavigationProperty" NavigationPropertyPath="Parameters"/> -->
+                                    <!-- <PropertyValue Property="FilterRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Filterable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record> -->
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>p_date</PropertyPath>
+                                <PropertyPath>p_date_h</PropertyPath>
+                                <PropertyPath>p_time_l</PropertyPath>
+                                <PropertyPath>p_time_h</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZCDS_VENTAS_DASHBOARD_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZCDS_VENTAS_DASHBOARD_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>
