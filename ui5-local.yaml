@@ -16,7 +16,7 @@ framework:
     - name: sap.ui.generic.app
     - name: sap.ui.table
     - name: sap.ushell
-    - name: themelib_sap_fiori_3
+    - name: themelib_sap_fiori_3_dark
 server:
   customMiddleware:
     - name: fiori-tools-appreload
@@ -46,4 +46,4 @@ server:
       afterMiddleware: fiori-tools-appreload
       configuration:
         component: geosales.geosales
-        ui5Theme: sap_fiori_3
+        ui5Theme: sap_fiori_3_dark
