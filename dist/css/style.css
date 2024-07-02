@@ -227,10 +227,10 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
 .sapMST {
     border-radius: 1rem;    
 }
-
-/* .sapMGT.OneByOne {
+/*
+ .sapMGT.OneByOne {
     width: 11rem;
-    height: 9rem;
+    height: 10.9rem !important;
 }
 
 .myHeaderTile .sapMGTHdrContent {

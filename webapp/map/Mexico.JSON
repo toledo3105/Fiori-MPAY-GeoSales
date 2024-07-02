@@ -9143,8 +9143,8 @@
         },
         {
             "type": "Feature",
-            "id": "MX-DUR",
-            "id2": "MX-DUR",
+            "id": "MX-DGO",
+            "id2": "MX-DGO",
             "properties": {
                 "state_code": 10,
                 "name": "Durango"
@@ -10383,8 +10383,8 @@
         },
         {
             "type": "Feature",
-            "id": "MX-CHH",
-            "id2": "MX-CHH",
+            "id": "MX-CHI",
+            "id2": "MX-CHI",
             "properties": {
                 "state_code": 8,
                 "name": "Chihuahua"
@@ -19035,8 +19035,8 @@
         },
         {
             "type": "Feature",
-            "id": "MX-GUA",
-            "id2": "MX-GUA",
+            "id": "MX-GTO",
+            "id2": "MX-GTO",
             "properties": {
                 "state_code": 11,
                 "name": "Guanajuato"
@@ -19915,8 +19915,8 @@
         },
         {
             "type": "Feature",
-            "id": "MX-AGU",
-            "id2": "MX-AGU",
+            "id": "MX-AGS",
+            "id2": "MX-AGS",
             "properties": {
                 "state_code": 1,
                 "name": "Aguascalientes"
@@ -23863,8 +23863,8 @@
         },
         {
             "type": "Feature",
-            "id": "MX-HID",
-            "id2": "MX-HID",
+            "id": "MX-HGO",
+            "id2": "MX-HGO",
             "properties": {
                 "state_code": 13,
                 "name": "Hidalgo"
@@ -26807,8 +26807,8 @@
         },
         {
             "type": "Feature",
-            "id": "MX-NLE",
-            "id2": "MX-NLE",
+            "id": "MX-NL",
+            "id2": "MX-NL",
             "properties": {
                 "state_code": 19,
                 "name": "Nuevo León"
