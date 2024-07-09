@@ -150,7 +150,7 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
     color: #FF5555 !important;
 }
 
-.valuePantallas .sapMGTHdrIconImage{
+.valuePantallas .sapMGTHdrIconImage {
     color: #7fc6c6 !important;
 }
 
@@ -158,15 +158,40 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
     color: #FABD64!important;
 }
 
-.valuePrestamos .sapMGTHdrIconImage{
+.valuePrestamos .sapMGTHdrIconImage {
     color: #ABE2AB !important;
 }
 
-.valueEcommerce .sapMGTHdrIconImage{
+.valueEcommerce .sapMGTHdrIconImage {
     color: #8CA7D5 !important;
 }
 
-.valueContado .sapMGTHdrIconImage{
+.valueContado .sapMGTHdrIconImage {
+    color: #B995E0 !important;
+}
+
+-------------------------------
+.valueMotosNC  .sapMNCIconImage{
+    color: #FF5555 !important;
+}
+
+.valuePantallasNC .sapMNCIconImage{
+    color: #7fc6c6 !important;
+}
+
+.valueCelularesNC .sapMNCIconImage {
+    color: #FABD64!important;
+}
+
+.valuePrestamosNC .sapMNCIconImage{
+    color: #ABE2AB !important;
+}
+
+.valueEcommerceNC .sapMNCIconImage{
+    color: #8CA7D5 !important;
+}
+
+.valueContadoNC .sapMNCIconImage{
     color: #B995E0 !important;
 }
 
@@ -227,18 +252,6 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
 .sapMST {
     border-radius: 1rem;    
 }
-/*
- .sapMGT.OneByOne {
-    width: 11rem;
-    height: 10.9rem !important;
-}
-
-.myHeaderTile .sapMGTHdrContent {
-    height: 2.625rem;
-    padding-top: .5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-} */
 
 .sapFCard .sapFCardContent {
     display: contents !important;
@@ -246,4 +259,29 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
 
 .sapUiFixFlexFixed {
     border-radius: 1rem;
+}
+
+.sapFCard .sapFCardHeader{
+    border-radius: 1rem 1rem 0 0;
+}
+
+ .sapFCard .sapFCardHeader .sapFCardHeaderText .sapFCardTitle{
+    font-size: 1.2rem !important;
+}
+
+.sapMGTHdrContent {
+    height: 3.2rem;
+}
+
+.sapMST.OneByOne {
+    width: 11rem;
+    height: 10.9rem;
+}
+
+.cardTotales .sapFCard {
+   height: 17rem !important;
+}
+
+.estadosTop {
+    font-size: 1.2rem;
 }

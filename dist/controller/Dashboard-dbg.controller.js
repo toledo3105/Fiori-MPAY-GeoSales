@@ -371,7 +371,7 @@ sap.ui.define(
         // Ciclos de 1 minuto para actualizar objetos
         setInterval(function () {
           odataConsume(oThis, "to_Totales,to_Recientes,to_TotalesEstado");
-        }, 20000);
+        }, 60000);
       },
       // formatCountry: function (oValue) {
       //   var lv_v = oValue;

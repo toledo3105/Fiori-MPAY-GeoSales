@@ -45,15 +45,18 @@ sap.ui.define(
       let year = date.getFullYear();
 
       let hour = date.getHours();
-      let minute = date.getMinutes();
-      let minuteH = date.getMinutes() + 1;
+      let minuteH = date.getMinutes();
+      let minute = minuteH - 1;
 
-      var dateLow = year + "-" + month + "-" + day + "T00:00:00";
-      var dateHigh = year + "-" + month + "-" + day + "T00:00:00";
-      // var dateLow = "2024-03-06T00:00:00";
-      // var dateHigh = "2024-03-06T00:00:00";
+      // var dateLow = year + "-" + month + "-" + day + "T00:00:00";
+      // var dateHigh = year + "-" + month + "-" + day + "T00:00:00";
       var timeLow = "PT" + hour + "H" + minute + "M" + "00S";
       var timeHigh = "PT" + hour + "H" + minuteH + "M" + "00S";
+      var dateLow = "2023-11-18T00:00:00";
+      var dateHigh = "2023-11-18T00:00:00";
+      // var timeLow = "PT11H00M00S";
+      // var timeHigh = "PT11H01M00S";
+
       var urlBase =
         "/ZCDS_VENTAS_DASHBOARD(p_date=datetime'" +
         dateLow +
@@ -112,7 +115,7 @@ sap.ui.define(
             break;
           case "Préstamo":
             lvIcon = "sap-icon://loan";
-            lvStyle = lvStyle + " valuePrestamos";
+            lvStyle = lvStyle + "valuePrestamos";
             element.Producto = element.Producto + "s";
             break;
           case "Motos":
@@ -224,14 +227,61 @@ sap.ui.define(
       var counter = 1;
       var counterAux = 0;
       var lDic = {};
-      var len = iData.length;
+      // var len = iData.length;
       var listEstadosRecientes = [];
       var IDs = [];
+      var iDataAux = [];
+
       iData.forEach((element) => {
+        if (
+          !iDataAux.find(
+            (fnd) =>
+              fnd.Estado == element.Estado &&
+              fnd.Producto == element.Producto &&
+              fnd.tipo_venta == element.tipo_venta
+          )
+        ) {
+          iDataAux.push(element);
+        } else {
+          var index = iDataAux.findIndex(
+            (fnd) =>
+              fnd.Estado == element.Estado &&
+              fnd.Producto == element.Producto &&
+              fnd.tipo_venta == element.tipo_venta
+          );
+          iDataAux[index].total++;
+        }
+      });
+      var len = iDataAux.length;
+      iDataAux.forEach((element) => {
         if (listEstadosRecientes.find((fnd) => fnd == element.Estado)) {
         } else {
           listEstadosRecientes.push(element.Estado);
         }
+        var lvStyle = "";
+        var lvIcon = "";
+        switch (element.Producto) {
+          case "Celulares":
+            lvIcon = "sap-icon://iphone";
+            lvStyle = lvStyle + "valueCelularesNC";
+            break;
+          case "Préstamo":
+            lvIcon = "sap-icon://loan";
+            lvStyle = lvStyle + "valuePrestamosNC";
+            element.Producto = element.Producto + "s";
+            break;
+          case "Motos":
+            lvIcon = "sap-icon://bus-public-transport";
+            lvStyle = lvStyle + "valueMotosNC";
+            break;
+        }
+        var loNumeric = new sap.m.NumericContent({
+          // id: "tile" + element.Estado,
+          icon: lvIcon,
+          value: element.total,
+          withMargin: false,
+        });
+        loNumeric.addStyleClass(lvStyle);
         var loItem = new sap.m.GenericTile({
           header: element.Producto,
           subheader: element.tipo_venta,
@@ -239,16 +289,12 @@ sap.ui.define(
 
           tileContent: new sap.m.TileContent({
             footer: element.DescEstado,
-            content: new sap.m.NumericContent({
-              icon: "sap-icon://iphone",
-              value: element.total,
-              withMargin: false,
-            }),
+            content: loNumeric,
           }),
         });
         counterAux += 1;
-        loItem.addStyleClass("iconCelulares");
-        loItem.addStyleClass("myHeaderTile");
+        // loItem.addStyleClass(lvStyle);
+        // loItem.addStyleClass("myHeaderTile");
 
         var oLay = new sap.f.GridContainerItemLayoutData();
         oLay.setColumns(2);
@@ -371,11 +417,8 @@ sap.ui.define(
         // Ciclos de 1 minuto para actualizar objetos
         setInterval(function () {
           odataConsume(oThis, "to_Totales,to_Recientes,to_TotalesEstado");
-        }, 20000);
+        }, 60000);
       },
-      // formatCountry: function (oValue) {
-      //   var lv_v = oValue;
-      // },
     });
   }
 );
