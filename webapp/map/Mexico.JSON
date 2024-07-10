@@ -11876,7 +11876,7 @@
         {
             "type": "Feature",
             "id": "MX-COL",
-            "id2": "MX-COL ",
+            "id2": "MX-COL",
             "properties": {
                 "state_code": 6,
                 "name": "Colima"

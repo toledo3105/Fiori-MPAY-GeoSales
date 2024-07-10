@@ -1,22 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
-    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
-        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
-    </edmx:Reference>
-    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
-        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
-    </edmx:Reference>
-    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
-        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
-    </edmx:Reference>
-    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
     </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='')/$value">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+    </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
-        <Schema Namespace="ZCDS_VENTAS_DASHBOARD_CDS" xml:lang="es" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZCDS_VENTAS_DASHBOARD_CDS" xml:lang="es" sap:schema-version="1">
+            <EntityType Name="ZCDS_VENTASXDIAType" sap:label="ZCDS_Ventas por día" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="fecha"/>
+                </Key>
+                <Property Name="fecha" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Creado el" sap:quickinfo="Fecha de creación del registro"/>
+                <Property Name="venta_Actual" Type="Edm.Int32"/>
+                <Property Name="fecha_Anterior" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Creado el" sap:quickinfo="Fecha de creación del registro"/>
+                <Property Name="venta_anio_anterior" Type="Edm.Int32"/>
+            </EntityType>
             <EntityType Name="ZCDS_VENTAS_DASHBOARDType" sap:label="Dashboard de ventas Dirección" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="p_date"/>
@@ -38,6 +61,7 @@
                 <Property Name="date_h" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date"/>
                 <Property Name="time_l" Type="Edm.Time" Nullable="false" Precision="0"/>
                 <Property Name="time_h" Type="Edm.Time" Nullable="false" Precision="0"/>
+                <NavigationProperty Name="to_ComparativoDays" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_27B9979CDF98D6EB68B3C924EAA22050" FromRole="FromRole_assoc_27B9979CDF98D6EB68B3C924EAA22050" ToRole="ToRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
                 <NavigationProperty Name="to_Historico" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_7C90C508E703253E5B02F2BFF8414784" FromRole="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784" ToRole="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
                 <NavigationProperty Name="to_Recientes" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" FromRole="FromRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" ToRole="ToRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
                 <NavigationProperty Name="to_Totales" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_ADE0167E2546184FF0C17EAD1118B487" FromRole="FromRole_assoc_ADE0167E2546184FF0C17EAD1118B487" ToRole="ToRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
@@ -62,13 +86,13 @@
                     <PropertyRef Name="Fecha"/>
                     <PropertyRef Name="Producto"/>
                 </Key>
-                <Property Name="Fecha" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="Fecha" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Fecha factura"/>
                 <Property Name="Producto" Type="Edm.String" Nullable="false" MaxLength="9"/>
                 <Property Name="tipo_venta" Type="Edm.String" MaxLength="14"/>
                 <Property Name="ClaseVenta" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Clase de factura"/>
                 <Property Name="DescClaseVenta" Type="Edm.String" MaxLength="40" sap:label="Denominación"/>
-                <Property Name="Estado" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Región" sap:quickinfo="Región (Estado federal, &quot;land&quot;, provincia, condado)"/>
-                <Property Name="DescEstado" Type="Edm.String" MaxLength="20" sap:label="Denominación"/>
+                <Property Name="Estado" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Región centro entr." sap:quickinfo="Región del centro"/>
+                <Property Name="DescEstado" Type="Edm.String" MaxLength="20" sap:label="Descripción"/>
                 <Property Name="total" Type="Edm.Int32"/>
             </EntityType>
             <EntityType Name="ZCDS_VENTAS_HISTType" sap:label="Hist. de Ventas por Producto y TipoVenta" sap:content-version="1">
@@ -76,7 +100,7 @@
                     <PropertyRef Name="Fecha"/>
                     <PropertyRef Name="Producto"/>
                 </Key>
-                <Property Name="Fecha" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="Fecha" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Fecha factura"/>
                 <Property Name="Producto" Type="Edm.String" Nullable="false" MaxLength="9"/>
                 <Property Name="tipo_venta" Type="Edm.String" MaxLength="14"/>
                 <Property Name="ClaseVenta" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Clase de factura"/>
@@ -89,13 +113,13 @@
                     <PropertyRef Name="Hora"/>
                 </Key>
                 <Property Name="Fecha" Type="Edm.String" Nullable="false" MaxLength="8"/>
-                <Property Name="Hora" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Hora" sap:quickinfo="Hora registrada"/>
+                <Property Name="Hora" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Hora" sap:quickinfo="Hora de entrada"/>
                 <Property Name="Producto" Type="Edm.String" MaxLength="9"/>
                 <Property Name="tipo_venta" Type="Edm.String" MaxLength="14"/>
                 <Property Name="ClaseVenta" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Clase de factura"/>
                 <Property Name="DescClaseVenta" Type="Edm.String" MaxLength="40" sap:label="Denominación"/>
-                <Property Name="Estado" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Región" sap:quickinfo="Región (Estado federal, &quot;land&quot;, provincia, condado)"/>
-                <Property Name="DescEstado" Type="Edm.String" MaxLength="20" sap:label="Denominación"/>
+                <Property Name="Estado" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Región centro entr." sap:quickinfo="Región del centro"/>
+                <Property Name="DescEstado" Type="Edm.String" MaxLength="20" sap:label="Descripción"/>
                 <Property Name="total" Type="Edm.Int32"/>
             </EntityType>
             <EntityType Name="ZCDS_VENTAS_TOTALESType" sap:label="Ventas totales por día" sap:content-version="1">
@@ -103,7 +127,7 @@
                     <PropertyRef Name="Fecha"/>
                     <PropertyRef Name="Producto"/>
                 </Key>
-                <Property Name="Fecha" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="Fecha" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Fecha factura"/>
                 <Property Name="Producto" Type="Edm.String" Nullable="false" MaxLength="9"/>
                 <Property Name="tipo_venta" Type="Edm.String" MaxLength="14"/>
                 <Property Name="ClaseVenta" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Clase de factura"/>
@@ -113,6 +137,10 @@
             <Association Name="assoc_437B6923660A217609F2881681CDB526" sap:content-version="1">
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDParameters" Multiplicity="1" Role="FromRole_assoc_437B6923660A217609F2881681CDB526"/>
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="*" Role="ToRole_assoc_437B6923660A217609F2881681CDB526"/>
+            </Association>
+            <Association Name="assoc_7C90C508E703253E5B02F2BFF8414784" sap:content-version="1">
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_HISTType" Multiplicity="*" Role="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
             </Association>
             <Association Name="assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" sap:content-version="1">
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
@@ -126,11 +154,12 @@
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_ESTADOType" Multiplicity="*" Role="ToRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
             </Association>
-            <Association Name="assoc_7C90C508E703253E5B02F2BFF8414784" sap:content-version="1">
-                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
-                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_HISTType" Multiplicity="*" Role="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+            <Association Name="assoc_27B9979CDF98D6EB68B3C924EAA22050" sap:content-version="1">
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTASXDIAType" Multiplicity="*" Role="ToRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
             </Association>
             <EntityContainer Name="ZCDS_VENTAS_DASHBOARD_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZCDS_VENTASXDIA" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTASXDIAType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_VENTAS_DASHBOARDSet" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_VENTAS_DASHBOARD" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDParameters" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_VENTAS_ESTADO" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_ESTADOType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
@@ -149,6 +178,10 @@
                     <End EntitySet="ZCDS_VENTAS_DASHBOARD" Role="FromRole_assoc_437B6923660A217609F2881681CDB526"/>
                     <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="ToRole_assoc_437B6923660A217609F2881681CDB526"/>
                 </AssociationSet>
+                <AssociationSet Name="assoc_27B9979CDF98D6EB68B3C924EAA22050" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_27B9979CDF98D6EB68B3C924EAA22050" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
+                    <End EntitySet="ZCDS_VENTASXDIA" Role="ToRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
+                </AssociationSet>
                 <AssociationSet Name="assoc_7C90C508E703253E5B02F2BFF8414784" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_7C90C508E703253E5B02F2BFF8414784" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
                     <End EntitySet="ZCDS_VENTAS_HIST" Role="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
@@ -158,21 +191,11 @@
                     <End EntitySet="ZCDS_VENTAS_ESTADO" Role="ToRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
                 </AssociationSet>
             </EntityContainer>
-            <Annotations Target="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARD_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Aggregation.ApplySupported">
-                    <Record>
-                        <PropertyValue Property="Transformations">
-                            <Collection>
-                                <String>aggregate</String>
-                                <String>groupby</String>
-                                <String>filter</String>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="Rollup" EnumMember="None"/>
-                    </Record>
-                </Annotation>
+            <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.SchemaVersion" String="1.0.0"/>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARD_CDS_Entities">
+                <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
             </Annotations>
-            <Annotations Target="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARD_CDS_Entities/ZCDS_VENTAS_DASHBOARD" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARD_CDS_Entities/ZCDS_VENTAS_DASHBOARD">
                 <Annotation Term="Capabilities.FilterRestrictions">
                     <Record>
                         <PropertyValue Property="NonFilterableProperties">
@@ -189,9 +212,9 @@
                     <Record>
                         <PropertyValue Property="RestrictedProperties">
                             <Collection>
-                                <!-- <Record> -->
-                                    <!-- <PropertyValue Property="NavigationProperty" NavigationPropertyPath="Parameters"/> -->
-                                    <!-- <PropertyValue Property="FilterRestrictions">
+                                <!-- <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="Parameters"/>
+                                    <PropertyValue Property="FilterRestrictions">
                                         <Record>
                                             <PropertyValue Property="Filterable" Bool="false"/>
                                         </Record>
@@ -214,8 +237,58 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <atom:link rel="self" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZCDS_VENTAS_DASHBOARD_CDS/$metadata?sap-client=100" xmlns:atom="http://www.w3.org/2005/Atom"/>
-            <atom:link rel="latest-version" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZCDS_VENTAS_DASHBOARD_CDS/$metadata?sap-client=100" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARD_CDS_Entities/ZCDS_VENTAS_DASHBOARDSet">
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_ComparativoDays"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Historico"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Recientes"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Totales"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_TotalesEstado"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZCDS_VENTAS_DASHBOARD_CDS/$metadata"/>
+            <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZCDS_VENTAS_DASHBOARD_CDS/$metadata"/>
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

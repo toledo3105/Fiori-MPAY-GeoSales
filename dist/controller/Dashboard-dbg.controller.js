@@ -45,15 +45,18 @@ sap.ui.define(
       let year = date.getFullYear();
 
       let hour = date.getHours();
-      let minute = date.getMinutes();
-      let minuteH = date.getMinutes() + 1;
+      let minuteH = date.getMinutes();
+      let minute = minuteH - 1;
 
-      var dateLow = year + "-" + month + "-" + day + "T00:00:00";
-      var dateHigh = year + "-" + month + "-" + day + "T00:00:00";
-      // var dateLow = "2024-03-06T00:00:00";
-      // var dateHigh = "2024-03-06T00:00:00";
+      // var dateLow = year + "-" + month + "-" + day + "T00:00:00";
+      // var dateHigh = year + "-" + month + "-" + day + "T00:00:00";
       var timeLow = "PT" + hour + "H" + minute + "M" + "00S";
       var timeHigh = "PT" + hour + "H" + minuteH + "M" + "00S";
+      var dateLow = "2023-11-18T00:00:00";
+      var dateHigh = "2023-11-18T00:00:00";
+      // var timeLow = "PT12H08M00S";
+      // var timeHigh = "PT12H09M00S";
+
       var urlBase =
         "/ZCDS_VENTAS_DASHBOARD(p_date=datetime'" +
         dateLow +
@@ -90,6 +93,8 @@ sap.ui.define(
 
           //  Llenar Regiones que registraron ventas en el último minuto
           fillRecentEstates(listEstadosRecientes, oThis);
+
+          fillTopEstados(oThis, oSuccess.results[0].to_TopVentas.results);
         },
         error: function (oError) {},
       });
@@ -112,7 +117,7 @@ sap.ui.define(
             break;
           case "Préstamo":
             lvIcon = "sap-icon://loan";
-            lvStyle = lvStyle + " valuePrestamos";
+            lvStyle = lvStyle + "valuePrestamos";
             element.Producto = element.Producto + "s";
             break;
           case "Motos":
@@ -224,14 +229,61 @@ sap.ui.define(
       var counter = 1;
       var counterAux = 0;
       var lDic = {};
-      var len = iData.length;
+      // var len = iData.length;
       var listEstadosRecientes = [];
       var IDs = [];
+      var iDataAux = [];
+      oThis.byId("listRecientes").destroyItems();
       iData.forEach((element) => {
+        if (
+          !iDataAux.find(
+            (fnd) =>
+              fnd.Estado == element.Estado &&
+              fnd.Producto == element.Producto &&
+              fnd.tipo_venta == element.tipo_venta
+          )
+        ) {
+          iDataAux.push(element);
+        } else {
+          var index = iDataAux.findIndex(
+            (fnd) =>
+              fnd.Estado == element.Estado &&
+              fnd.Producto == element.Producto &&
+              fnd.tipo_venta == element.tipo_venta
+          );
+          iDataAux[index].total++;
+        }
+      });
+      var len = iDataAux.length;
+      iDataAux.forEach((element) => {
         if (listEstadosRecientes.find((fnd) => fnd == element.Estado)) {
         } else {
           listEstadosRecientes.push(element.Estado);
         }
+        var lvStyle = "";
+        var lvIcon = "";
+        switch (element.Producto) {
+          case "Celulares":
+            lvIcon = "sap-icon://iphone";
+            lvStyle = lvStyle + "valueCelularesNC";
+            break;
+          case "Préstamo":
+            lvIcon = "sap-icon://loan";
+            lvStyle = lvStyle + "valuePrestamosNC";
+            element.Producto = element.Producto + "s";
+            break;
+          case "Motos":
+            lvIcon = "sap-icon://bus-public-transport";
+            lvStyle = lvStyle + "valueMotosNC";
+            break;
+        }
+        var loNumeric = new sap.m.NumericContent({
+          // id: "tile" + element.Estado,
+          icon: lvIcon,
+          value: element.total,
+          withMargin: false,
+        });
+        loNumeric.addStyleClass(lvStyle);
         var loItem = new sap.m.GenericTile({
           header: element.Producto,
           subheader: element.tipo_venta,
@@ -239,20 +291,12 @@ sap.ui.define(
 
           tileContent: new sap.m.TileContent({
             footer: element.DescEstado,
-            content: new sap.m.NumericContent({
-              icon: "sap-icon://iphone",
-              value: element.total,
-              withMargin: false,
-            }),
+            content: loNumeric,
           }),
         });
         counterAux += 1;
-        loItem.addStyleClass("iconCelulares");
-        loItem.addStyleClass("myHeaderTile");
-
-        var oLay = new sap.f.GridContainerItemLayoutData();
-        oLay.setColumns(2);
-        oLay.setMinRows(2);
+        // loItem.addStyleClass(lvStyle);
+        // loItem.addStyleClass("myHeaderTile");
         if (counterAux <= 3) {
           lDic[counter] = new sap.m.SlideTile();
           lDic[counter].addTile(loItem);
@@ -269,7 +313,6 @@ sap.ui.define(
           counter = 1;
           do {
             var oCard = new sap.f.Card();
-
             oCard.setContent(lDic[counter]);
             oCard.addCustomData(
               new sap.m.BadgeCustomData({
@@ -278,12 +321,16 @@ sap.ui.define(
             );
             if (oCard.getContent()) {
               oCard.addStyleClass("sapUiSmallMarginBottom");
+              // if (gIds["recentCards"]) {
+              //   var lenCards = gIds["recentCards"].length;
+              // } else {
+              //   lenCards = 0;
+              // }
               if (!gIds["recentCards"]) {
                 oThis.byId("listRecientes").addItem(oCard);
-                oThis.byId("listRecientes").setLayoutData(oLay);
-                IDs.push(
-                  oThis.byId("listRecientes").getItems()[counter - 1].getId()
-                );
+                // IDs.push(
+                //   oThis.byId("listRecientes").getItems()[counter - 1].getId()
+                // );
               } else {
                 oThis
                   .byId("listRecientes")
@@ -294,18 +341,43 @@ sap.ui.define(
                   .byId("listRecientes")
                   .getItems()
                   [counter - 1].setContent(lDic[counter]);
-                // oThis.byId("listRecientes").setLayoutData(oLay);
               }
+
+              // Ocultar Cards que no tienen datos
+              // if (counter < lenCards) {
+              //   var auxCont = 1;
+              //   do {
+              //     auxCont++;
+              //     if (auxCont > counter) {
+              //       oThis
+              //         .byId("listRecientes")
+              //         .getItems()
+              //         [auxCont - 1].setVisible(false);
+              //     }
+              //   } while (auxCont <= lenCards);
+              // }
             }
             counter++;
           } while (counter <= 3);
         }
       });
       if (!gIds["recentCards"]) {
-        gIds["recentCards"] = IDs;
+        // gIds["recentCards"] = IDs;
       }
 
       return listEstadosRecientes;
+    }
+
+    // Llenar Estados Top
+    function fillTopEstados(oThis, iData) {
+      iData.forEach((element) => {
+        oThis.byId("topEstados").addBar(
+          new sap.suite.ui.microchart.InteractiveBarChartBar({
+            label: element.bezei,
+            value: element.Registros,
+          })
+        );
+      });
     }
 
     return Controller.extend("geosales.geosales.controller.Dashboard", {
@@ -316,7 +388,10 @@ sap.ui.define(
         //   odataConsume(this, "to_Totales,to_Recientes,to_TotalesEstado");
         // }, 20000);
         // Carga Inicial de datos
-        odataConsume(oThis, "to_Totales,to_Recientes,to_TotalesEstado");
+        odataConsume(
+          oThis,
+          "to_Totales,to_Recientes,to_TotalesEstado,to_TopVentas"
+        );
 
         // ODataModel.bCanonicalRequests = true;
         // ODataModel.setUseBatch(false);
@@ -373,9 +448,6 @@ sap.ui.define(
           odataConsume(oThis, "to_Totales,to_Recientes,to_TotalesEstado");
         }, 60000);
       },
-      // formatCountry: function (oValue) {
-      //   var lv_v = oValue;
-      // },
     });
   }
 );

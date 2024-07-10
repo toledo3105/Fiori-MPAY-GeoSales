@@ -14,7 +14,16 @@
 		vertical="true">                        
         <VBox class="sapUiSmallMargin" width="100%" >
             <f:GridContainer  id="totalesProductos" width="100%">
-            	        
+                <!-- <GenericTile id="time" header="18 nov 2023">
+                    <layoutData>
+                        <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                    </layoutData>
+                    <TileContent >
+                        <VBox >
+                            <core:Icon src=""/>
+                        </VBox>
+                    </TileContent>
+                </GenericTile> -->
             </f:GridContainer>
             <f:GridContainer width="100%" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
                 <f:Card id="cardMap" width="100%" height="100%" >        
@@ -52,9 +61,11 @@
                     </f:content>
                 </f:Card>                    
                 <VBox id="listRecientes" width="100%" displayInline="true">
-                    
+                    <layoutData>
+                        <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                    </layoutData>
                 </VBox>
-                <VBox width="100%">                    
+                <VBox width="100%" >
                     <layoutData>
                         <f:GridContainerItemLayoutData minRows="2" columns="4" />
                     </layoutData>
@@ -67,17 +78,17 @@
                         </f:header>
                         <f:content>                                        
                             <HBox>     
-                                <chart:HarveyBallMicroChart size="L" total="5500" totalScale="" class="sapUiLargeMarginTopBottom sapUiSmallMarginBegin ">
-                                    <chart:HarveyBallMicroChartItem fraction="5000" color="Good" fractionScale=""/>
+                                <chart:HarveyBallMicroChart id="ballChart1" size="L"  totalScale="" class="sapUiLargeMarginTopBottom sapUiSmallMarginBegin ">
+                                    <chart:HarveyBallMicroChartItem id="ballChart2" color="Good" fractionScale=""/>
                                 </chart:HarveyBallMicroChart>                                   
                                 <VBox class="sapUiSmallMarginTop">
                                     <HBox alignItems="Center"   justifyContent="Center" class="sapUiLargeMarginTop">
                                         <core:Icon src="sap-icon://color-fill" color="#3fa45b" />
-                                        <Text text="18 nov 2024" class="sapUiSmallMarginBegin" />
+                                        <Text id="fechaBall1" class="sapUiSmallMarginBegin" />
                                     </HBox> 
                                     <HBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
                                         <core:Icon src="sap-icon://color-fill" />
-                                        <Text text="18 nov 2023" class="sapUiSmallMarginBegin" />
+                                        <Text id="fechaBall2" class="sapUiSmallMarginBegin" />
                                     </HBox>     
                                 </VBox>                                            
                             </HBox>                              
@@ -91,8 +102,17 @@
                             <card:Header title="Estados Top en ventas" />
                         </f:header>
                         <f:content>                                               
-                            <VBox class="sapUiMediumMargin sapUiSmallMarginTop sapUiTinyMarginBottom">
-                                <HBox alignItems="Center"   justifyContent="SpaceBetween" >
+                            <VBox class="sapUiSmallMargin">
+                                <chart:InteractiveBarChart id="topEstados" displayedBars="5">
+                                    <chart:bars>
+                                        <!-- <chart:InteractiveBarChartBar label="Yucatán" value="2000"/>
+                                        <chart:InteractiveBarChartBar label="Quintana Roo" value="500"/>
+                                        <chart:InteractiveBarChartBar label="Nuevo León" value="676"/>
+                                        <chart:InteractiveBarChartBar label="Ciudad de México" value="123"/>
+                                        <chart:InteractiveBarChartBar label="Aguascalientes" value="88"/> -->
+                                    </chart:bars>
+                                </chart:InteractiveBarChart>
+                                <!-- <HBox alignItems="Center"   justifyContent="SpaceBetween" >
                                     <Title text="Yucatán" level="H1" class="estadosTop"/>
                                     <ObjectNumber class="estadosTop"
 				                                  number="1234.00"
@@ -126,7 +146,7 @@
 				                                  number="1234.00"
                                                   emphasized="true"
 				                                  state="Success" />
-                                </HBox>
+                                </HBox> -->
                             </VBox>                              
                         </f:content>
                     </f:Card>

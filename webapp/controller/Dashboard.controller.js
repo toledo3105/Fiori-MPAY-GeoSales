@@ -25,7 +25,12 @@ sap.ui.define(
     var oThis;
     var gIds = {};
     var sServiceUrl = "/sap/opu/odata/sap/ZCDS_VENTAS_DASHBOARD_CDS";
+    var sServiceUrlTop = "/sap/opu/odata/sap/ZCDS_TOPVENTASXREG_CDS";
     var ODataModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl, false);
+    var ODataModelTop = new sap.ui.model.odata.v2.ODataModel(
+      sServiceUrlTop,
+      false
+    );
     var oDateFormat = DateFormat.getDateInstance({
       style: "medium",
       UTC: true,
@@ -52,10 +57,10 @@ sap.ui.define(
       // var dateHigh = year + "-" + month + "-" + day + "T00:00:00";
       var timeLow = "PT" + hour + "H" + minute + "M" + "00S";
       var timeHigh = "PT" + hour + "H" + minuteH + "M" + "00S";
-      var dateLow = "2023-11-18T00:00:00";
-      var dateHigh = "2023-11-18T00:00:00";
-      // var timeLow = "PT11H00M00S";
-      // var timeHigh = "PT11H01M00S";
+      var dateLow = "2023-05-10T00:00:00";
+      var dateHigh = "2023-05-10T00:00:00";
+      // var timeLow = "PT12H08M00S";
+      // var timeHigh = "PT12H09M00S";
 
       var urlBase =
         "/ZCDS_VENTAS_DASHBOARD(p_date=datetime'" +
@@ -93,11 +98,13 @@ sap.ui.define(
 
           //  Llenar Regiones que registraron ventas en el último minuto
           fillRecentEstates(listEstadosRecientes, oThis);
+
+          fillBall(oThis, oSuccess.results[0].to_ComparativoDays.results);
+          fillTopEstados(oThis, []);
         },
         error: function (oError) {},
       });
     }
-
     // Llenar Totales
     function fillTotales(iData, oThis) {
       var counter = 0;
@@ -231,7 +238,7 @@ sap.ui.define(
       var listEstadosRecientes = [];
       var IDs = [];
       var iDataAux = [];
-
+      oThis.byId("listRecientes").destroyItems();
       iData.forEach((element) => {
         if (
           !iDataAux.find(
@@ -295,10 +302,6 @@ sap.ui.define(
         counterAux += 1;
         // loItem.addStyleClass(lvStyle);
         // loItem.addStyleClass("myHeaderTile");
-
-        var oLay = new sap.f.GridContainerItemLayoutData();
-        oLay.setColumns(2);
-        oLay.setMinRows(2);
         if (counterAux <= 3) {
           lDic[counter] = new sap.m.SlideTile();
           lDic[counter].addTile(loItem);
@@ -315,7 +318,6 @@ sap.ui.define(
           counter = 1;
           do {
             var oCard = new sap.f.Card();
-
             oCard.setContent(lDic[counter]);
             oCard.addCustomData(
               new sap.m.BadgeCustomData({
@@ -324,12 +326,16 @@ sap.ui.define(
             );
             if (oCard.getContent()) {
               oCard.addStyleClass("sapUiSmallMarginBottom");
+              // if (gIds["recentCards"]) {
+              //   var lenCards = gIds["recentCards"].length;
+              // } else {
+              //   lenCards = 0;
+              // }
               if (!gIds["recentCards"]) {
                 oThis.byId("listRecientes").addItem(oCard);
-                oThis.byId("listRecientes").setLayoutData(oLay);
-                IDs.push(
-                  oThis.byId("listRecientes").getItems()[counter - 1].getId()
-                );
+                // IDs.push(
+                //   oThis.byId("listRecientes").getItems()[counter - 1].getId()
+                // );
               } else {
                 oThis
                   .byId("listRecientes")
@@ -340,7 +346,6 @@ sap.ui.define(
                   .byId("listRecientes")
                   .getItems()
                   [counter - 1].setContent(lDic[counter]);
-                // oThis.byId("listRecientes").setLayoutData(oLay);
               }
             }
             counter++;
@@ -348,75 +353,68 @@ sap.ui.define(
         }
       });
       if (!gIds["recentCards"]) {
-        gIds["recentCards"] = IDs;
+        // gIds["recentCards"] = IDs;
       }
 
       return listEstadosRecientes;
     }
 
+    // Llenar Estados Top
+    function fillTopEstados(oThis, iData) {
+      // Obtener los datos consultando el OData
+      const date = new Date();
+
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      // var dateP = year + "-" + month + "-" + day + "T00:00:00";
+      var dateP = "2023-11-18T00:00:00";
+      var urlBase = "/ZCDS_TOPVENTASXREG(p_fecha=datetime'" + dateP + "')/Set";
+      ODataModelTop.bCanonicalRequests = true;
+      ODataModelTop.setUseBatch(false);
+      ODataModelTop.read(urlBase, {
+        // urlParameters: {
+        //   $expand: lexpand,
+        // },
+        success: function (oSuccess) {
+          oSuccess.results.forEach((element) => {
+            oThis.byId("topEstados").addBar(
+              new sap.suite.ui.microchart.InteractiveBarChartBar({
+                label: element.bezei,
+                value: parseFloat(element.registros),
+              })
+            );
+          });
+        },
+        error: function (oError) {},
+      });
+    }
+
+    // Llenar gráfica de ventas
+    function fillBall(oThis, iData) {
+      oThis.byId("ballChart1").setTotal(iData[0].venta_anio_anterior);
+      oThis.byId("ballChart2").setFraction(iData[0].venta_Actual);
+      oThis.byId("fechaBall1").setText(oDateFormat.format(iData[0].fecha));
+      oThis
+        .byId("fechaBall2")
+        .setText(oDateFormat.format(iData[0].fecha_Anterior));
+    }
     return Controller.extend("geosales.geosales.controller.Dashboard", {
       onInit: function () {
         //  Obtener Fragment para usarlo como plantilla
         oThis = this;
-        // setInterval(function () {
-        //   odataConsume(this, "to_Totales,to_Recientes,to_TotalesEstado");
-        // }, 20000);
-        // Carga Inicial de datos
-        odataConsume(oThis, "to_Totales,to_Recientes,to_TotalesEstado");
-
-        // ODataModel.bCanonicalRequests = true;
-        // ODataModel.setUseBatch(false);
-        // ODataModel.read(
-        //   "/ZCDS_VENTAS_DASHBOARD(p_date=datetime'2023-11-20T00:00:00',p_date_h=datetime'2023-11-20T00:00:00',p_time_l=time'PT12H00M00S',p_time_h=time'PT12H02M00S')/Set",
-        //   // "/ZCDS_VENTAS_DASHBOARD(p_date=datetime'2023-03-20T00:00:00',p_date_h=datetime'2023-03-20T00:00:00',p_time_l=time'PT11H07M00S',p_time_h=time'PT11H08M00S')/Set",
-        //   {
-        //     urlParameters: {
-        //       $expand: "to_Totales,to_Recientes,to_TotalesEstado",
-        //     },
-        //     success: function (oSuccess) {
-        //       // Llenar totales
-        //       fillTotales(oSuccess.results[0].to_Totales.results, oThis);
-        //       //  Llenar estados que han registrado ventas
-        //       fillEstatesWithSales(
-        //         oSuccess.results[0].to_TotalesEstado.results,
-        //         oThis
-        //       );
-
-        //       //  Llenar Recientes
-        //       var listEstadosRecientes = fillRecentCards(
-        //         oSuccess.results[0].to_Recientes.results,
-        //         oThis
-        //       );
-
-        //       //  Llenar Regiones que registraron ventas en el último minuto
-        //       fillRecentEstates(listEstadosRecientes, oThis);
-        //     },
-        //   }
-        // );
-        // ----------------------------------------------------------------------
-
-        // sap.ui.require(["sap/ui/core/Fragment"], function (Fragment) {
-        //   Fragment.load({
-        //     id: oThis.getView().getId(),
-        //     name: "geosales.geosales.view.SlideTiles",
-        //   }).then(function (oFragment) {});
-        // });
-
-        // var oModel = new JSONModel("./data/states.json");
-        // this.getView().setModel(oModel);
-
-        // var oDeviceModel = new JSONModel(Device);
-        // oDeviceModel.setDefaultBindingMode("OneWay");
-        // this.getView().setModel(oDeviceModel, "device");
-
-        // oModel.attachRequestCompleted(function (oEvent) {
-        //   var lvX = "X";
-        // });
+        odataConsume(
+          oThis,
+          "to_Totales,to_Recientes,to_TotalesEstado,to_ComparativoDays"
+        );
       },
       onBeforeRendering: function () {
         // Ciclos de 1 minuto para actualizar objetos
         setInterval(function () {
-          odataConsume(oThis, "to_Totales,to_Recientes,to_TotalesEstado");
+          odataConsume(
+            oThis,
+            "to_Totales,to_Recientes,to_TotalesEstado,to_ComparativoDays"
+          );
         }, 60000);
       },
     });
