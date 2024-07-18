@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://captd2.macropay.mx:44302/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZCDS_VENTASXMES_SPLIT_CDS" xml:lang="es" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ZCDS_VENTASXMES_SPLITType" sap:label="Ventas por mes separadas" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="p_anio"/>
+                    <PropertyRef Name="Anio"/>
+                    <PropertyRef Name="Mes"/>
+                </Key>
+                <Property Name="p_anio" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Ejercicio"/>
+                <Property Name="Anio" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="Mes" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="NonNegative" sap:label="Mes" sap:quickinfo="Número de mes"/>
+                <Property Name="Nombre_Mes" Type="Edm.String" MaxLength="10" sap:label="Month Name"/>
+                <Property Name="Ventas" Type="Edm.Int32"/>
+                <NavigationProperty Name="Parameters" Relationship="ZCDS_VENTASXMES_SPLIT_CDS.assoc_E6B9FFD216C905976D8FD13AF0952AD7" FromRole="ToRole_assoc_E6B9FFD216C905976D8FD13AF0952AD7" ToRole="FromRole_assoc_E6B9FFD216C905976D8FD13AF0952AD7" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ZCDS_VENTASXMES_SPLITParameters" sap:semantics="parameters" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="p_anio"/>
+                </Key>
+                <Property Name="p_anio" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:parameter="mandatory" sap:label="Ejercicio" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Set" Relationship="ZCDS_VENTASXMES_SPLIT_CDS.assoc_E6B9FFD216C905976D8FD13AF0952AD7" FromRole="FromRole_assoc_E6B9FFD216C905976D8FD13AF0952AD7" ToRole="ToRole_assoc_E6B9FFD216C905976D8FD13AF0952AD7"/>
+            </EntityType>
+            <Association Name="assoc_E6B9FFD216C905976D8FD13AF0952AD7" sap:content-version="1">
+                <End Type="ZCDS_VENTASXMES_SPLIT_CDS.ZCDS_VENTASXMES_SPLITParameters" Multiplicity="1" Role="FromRole_assoc_E6B9FFD216C905976D8FD13AF0952AD7"/>
+                <End Type="ZCDS_VENTASXMES_SPLIT_CDS.ZCDS_VENTASXMES_SPLITType" Multiplicity="*" Role="ToRole_assoc_E6B9FFD216C905976D8FD13AF0952AD7"/>
+            </Association>
+            <EntityContainer Name="ZCDS_VENTASXMES_SPLIT_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZCDS_VENTASXMES_SPLITSet" EntityType="ZCDS_VENTASXMES_SPLIT_CDS.ZCDS_VENTASXMES_SPLITType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_VENTASXMES_SPLIT" EntityType="ZCDS_VENTASXMES_SPLIT_CDS.ZCDS_VENTASXMES_SPLITParameters" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_E6B9FFD216C905976D8FD13AF0952AD7" Association="ZCDS_VENTASXMES_SPLIT_CDS.assoc_E6B9FFD216C905976D8FD13AF0952AD7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_VENTASXMES_SPLIT" Role="FromRole_assoc_E6B9FFD216C905976D8FD13AF0952AD7"/>
+                    <End EntitySet="ZCDS_VENTASXMES_SPLITSet" Role="ToRole_assoc_E6B9FFD216C905976D8FD13AF0952AD7"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <Annotations Target="ZCDS_VENTASXMES_SPLIT_CDS.ZCDS_VENTASXMES_SPLIT_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ZCDS_VENTASXMES_SPLIT_CDS.ZCDS_VENTASXMES_SPLIT_CDS_Entities/ZCDS_VENTASXMES_SPLIT" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>p_anio</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="Parameters"/>
+                                    <PropertyValue Property="FilterRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Filterable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>p_anio</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZCDS_VENTASXMES_SPLIT_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://captd2.macropay.mx:44302/sap/opu/odata/sap/ZCDS_VENTASXMES_SPLIT_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

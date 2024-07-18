@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/sap/opu/odata/sap/ZGW_COMISIONES_MENUDEO_SRV/",
+        "uri": "/sap/opu/odata/sap/ZCDS_VENTAS_DASHBOARD_CDS/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -129,7 +129,9 @@
 				"stretch": true,
 				"files": [
 					"states.json",
-          "mexicostatesCoordinates.json"
+          "mexicostatesCoordinates.json",
+          "images/perrocara.ico",
+          "images/vendiendo.png"
 				]
 			}
 		}

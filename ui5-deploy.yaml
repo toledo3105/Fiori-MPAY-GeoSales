@@ -20,6 +20,6 @@ builder:
           name: ZFIORI_GEOSALES
           description: monitor de ventas
           package: ZSD
-          transport: DEVK9S00RC
+          transport: DEVK9S00UH
         exclude:
           - /test/

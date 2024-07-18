@@ -6,6 +6,9 @@
     xmlns:w="sap.ui.integration.widgets"
     xmlns:card="sap.f.cards"
     xmlns:l="sap.ui.layout"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
     xmlns:chart="sap.suite.ui.microchart">
     <Page id="page" showHeader="false">
         <ScrollContainer
@@ -14,16 +17,7 @@
 		vertical="true">                        
         <VBox class="sapUiSmallMargin" width="100%" >
             <f:GridContainer  id="totalesProductos" width="100%">
-                <!-- <GenericTile id="time" header="18 nov 2023">
-                    <layoutData>
-                        <f:GridContainerItemLayoutData minRows="2" columns="2" />
-                    </layoutData>
-                    <TileContent >
-                        <VBox >
-                            <core:Icon src=""/>
-                        </VBox>
-                    </TileContent>
-                </GenericTile> -->
+               
             </f:GridContainer>
             <f:GridContainer width="100%" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
                 <f:Card id="cardMap" width="100%" height="100%" >        
@@ -49,22 +43,33 @@
                                 </vbm:legend>	                               
                                 <vbm:vos >
                                     <vbm:Spots >
-                                        <!-- <vbm:Spot id="wdfSpot" position="-99.151884;19.441647;00"
-                                                  click="onClickItem" contextMenu="onContextMenuItem"                                  
-                                                  icon="sap-icon://unfavorite"
-                                                  type="Warning"/>                                         -->
+                                     
                                     </vbm:Spots>
                                 </vbm:vos>
                                 </vbm:AnalyticMap>
                             </l:fixContent>
                         </l:FixFlex>
                     </f:content>
-                </f:Card>                    
-                <VBox id="listRecientes" width="100%" displayInline="true">
+                </f:Card>
+                <VBox visible="true">
                     <layoutData>
                         <f:GridContainerItemLayoutData minRows="2" columns="2" />
                     </layoutData>
-                </VBox>
+                    <f:Card id="sinVentasTile"  visible="false">                       
+                        <f:content>
+                            <GenericTile header="Sin ventas" subheader="Tiendas trabajando" >
+                                <TileContent footer="">
+                                    <HBox alignItems="Center"   justifyContent="Center">
+                                        <Avatar src="images/vendiendo.png" displaySize="XL" displayShape="Square"/>
+                                    </HBox>
+                                </TileContent>
+                            </GenericTile>                            
+                        </f:content>                        
+                    </f:Card>     
+                    <VBox id="listRecientes" visible="true" width="100%" displayInline="true">
+                        
+                    </VBox>
+                </VBox>                               
                 <VBox width="100%" >
                     <layoutData>
                         <f:GridContainerItemLayoutData minRows="2" columns="4" />
@@ -105,52 +110,61 @@
                             <VBox class="sapUiSmallMargin">
                                 <chart:InteractiveBarChart id="topEstados" displayedBars="5">
                                     <chart:bars>
-                                        <!-- <chart:InteractiveBarChartBar label="Yucatán" value="2000"/>
-                                        <chart:InteractiveBarChartBar label="Quintana Roo" value="500"/>
-                                        <chart:InteractiveBarChartBar label="Nuevo León" value="676"/>
-                                        <chart:InteractiveBarChartBar label="Ciudad de México" value="123"/>
-                                        <chart:InteractiveBarChartBar label="Aguascalientes" value="88"/> -->
+                                       
                                     </chart:bars>
-                                </chart:InteractiveBarChart>
-                                <!-- <HBox alignItems="Center"   justifyContent="SpaceBetween" >
-                                    <Title text="Yucatán" level="H1" class="estadosTop"/>
-                                    <ObjectNumber class="estadosTop"
-				                                  number="1234.00"
-                                                  emphasized="true"
-				                                  state="Success" />
-                                </HBox>
-                                <HBox alignItems="Center"   justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
-                                    <Title text="Nuevo León" level="H1" class="estadosTop"/>
-                                    <ObjectNumber class="estadosTop"
-				                                  number="1234.00"
-                                                  emphasized="true"
-				                                  state="Success" />
-                                </HBox>
-                                <HBox alignItems="Center"   justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
-                                    <Title text="Yucatán" level="H1" class="estadosTop"/>
-                                    <ObjectNumber class="estadosTop"
-				                                  number="1234.00"
-                                                  emphasized="true"
-				                                  state="Success" />
-                                </HBox>
-                                <HBox alignItems="Center"   justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
-                                    <Title text="Yucatán" level="H1" class="estadosTop"/>
-                                    <ObjectNumber class="estadosTop"
-				                                  number="1234.00"
-                                                  emphasized="true"
-				                                  state="Success" />
-                                </HBox>
-                                <HBox alignItems="Center"   justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
-                                    <Title text="Yucatán" level="H1" class="estadosTop"/>
-                                    <ObjectNumber class="estadosTop"
-				                                  number="1234.00"
-                                                  emphasized="true"
-				                                  state="Success" />
-                                </HBox> -->
+                                </chart:InteractiveBarChart>                               
                             </VBox>                              
                         </f:content>
                     </f:Card>
-                </VBox>   
+                </VBox>
+                <f:Card id="cardMeses" width="100%" height="100%" >        
+                    <f:layoutData>
+                        <f:GridContainerItemLayoutData minRows="6" columns="5" />
+                    </f:layoutData>
+                    <f:content>
+                        <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='stacked_bar' vizProperties="{ 
+                            plotArea: {
+                                dataLabel: {                                                                                                                
+                                    visible: true
+                                }                                
+                            },
+                            valueAxis: {
+                                title:{
+                                    visible: false
+                                }
+                            },
+                            categoryAxis: {
+                                title: {
+                                    visible: false
+                                }
+                            },
+                            title: {
+                                visible: true,
+                                text: 'Ventas año actual vs. anterior'
+                            }
+                           
+                          }"
+                          >
+                            <viz:dataset >
+                              <viz.data:FlattenedDataset data="{myModel>/results}" >
+                                <viz.data:dimensions>
+                                    <viz.data:DimensionDefinition name="Nombre_Mes" value="{Nombre_Mes}" />
+                                    <viz.data:DimensionDefinition name="Anio" value="{Anio}"/>
+                                </viz.data:dimensions>
+                                <viz.data:measures>
+                                    <viz.data:MeasureDefinition name="Ventas" value="{Ventas}"/>
+                                </viz.data:measures>
+                              </viz.data:FlattenedDataset>
+                            </viz:dataset>
+                        
+                            <viz:feeds>
+                                <viz.feeds:FeedItem uid="valueAxis"    type="Measure"   values="Ventas" />
+                                <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Nombre_Mes" />
+                                <viz.feeds:FeedItem uid="color" type="Dimension" values="Anio" />
+                            </viz:feeds>                          
+                        </viz:VizFrame>
+                    </f:content>
+                </f:Card>   
             </f:GridContainer>                
             </VBox>
         </ScrollContainer>

@@ -31,6 +31,15 @@
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZCDS_VENTAS_DASHBOARD_CDS" xml:lang="es" sap:schema-version="1">
+            <EntityType Name="ZCDS_VENTASXDIAType" sap:label="ZCDS_Ventas por día" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="fecha"/>
+                </Key>
+                <Property Name="fecha" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Creado el" sap:quickinfo="Fecha de creación del registro"/>
+                <Property Name="venta_Actual" Type="Edm.Int32"/>
+                <Property Name="fecha_Anterior" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Creado el" sap:quickinfo="Fecha de creación del registro"/>
+                <Property Name="venta_anio_anterior" Type="Edm.Int32"/>
+            </EntityType>
             <EntityType Name="ZCDS_VENTAS_DASHBOARDType" sap:label="Dashboard de ventas Dirección" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="p_date"/>
@@ -52,9 +61,9 @@
                 <Property Name="date_h" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date"/>
                 <Property Name="time_l" Type="Edm.Time" Nullable="false" Precision="0"/>
                 <Property Name="time_h" Type="Edm.Time" Nullable="false" Precision="0"/>
+                <NavigationProperty Name="to_ComparativoDays" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_27B9979CDF98D6EB68B3C924EAA22050" FromRole="FromRole_assoc_27B9979CDF98D6EB68B3C924EAA22050" ToRole="ToRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
                 <NavigationProperty Name="to_Historico" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_7C90C508E703253E5B02F2BFF8414784" FromRole="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784" ToRole="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
                 <NavigationProperty Name="to_Recientes" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" FromRole="FromRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" ToRole="ToRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
-                <NavigationProperty Name="to_TopVentas" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_09D8F4460626FC94E2AE77A5EDC356C8" FromRole="FromRole_assoc_09D8F4460626FC94E2AE77A5EDC356C8" ToRole="ToRole_assoc_09D8F4460626FC94E2AE77A5EDC356C8"/>
                 <NavigationProperty Name="to_Totales" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_ADE0167E2546184FF0C17EAD1118B487" FromRole="FromRole_assoc_ADE0167E2546184FF0C17EAD1118B487" ToRole="ToRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
                 <NavigationProperty Name="to_TotalesEstado" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_207461469B11053C9316AEF3235C5AEE" FromRole="FromRole_assoc_207461469B11053C9316AEF3235C5AEE" ToRole="ToRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
                 <NavigationProperty Name="Parameters" Relationship="ZCDS_VENTAS_DASHBOARD_CDS.assoc_437B6923660A217609F2881681CDB526" FromRole="ToRole_assoc_437B6923660A217609F2881681CDB526" ToRole="FromRole_assoc_437B6923660A217609F2881681CDB526" sap:filterable="false"/>
@@ -125,26 +134,17 @@
                 <Property Name="DescClaseVenta" Type="Edm.String" MaxLength="40" sap:label="Denominación"/>
                 <Property Name="total" Type="Edm.Int32"/>
             </EntityType>
-            <EntityType Name="ZCDS_VENTAS_XREGType" sap:label="Ventas por Región" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="fecha"/>
-                </Key>
-                <Property Name="fecha" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Creado el" sap:quickinfo="Fecha de creación del registro"/>
-                <Property Name="regio" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Región centro entr." sap:quickinfo="Región del centro"/>
-                <Property Name="bezei" Type="Edm.String" MaxLength="20" sap:label="Descripción"/>
-                <Property Name="Registros" Type="Edm.Int32"/>
-            </EntityType>
             <Association Name="assoc_437B6923660A217609F2881681CDB526" sap:content-version="1">
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDParameters" Multiplicity="1" Role="FromRole_assoc_437B6923660A217609F2881681CDB526"/>
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="*" Role="ToRole_assoc_437B6923660A217609F2881681CDB526"/>
             </Association>
+            <Association Name="assoc_7C90C508E703253E5B02F2BFF8414784" sap:content-version="1">
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_HISTType" Multiplicity="*" Role="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+            </Association>
             <Association Name="assoc_11CA1B8D91C5AE6BF7E0EC299EA77064" sap:content-version="1">
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_REcientesType" Multiplicity="*" Role="ToRole_assoc_11CA1B8D91C5AE6BF7E0EC299EA77064"/>
-            </Association>
-            <Association Name="assoc_09D8F4460626FC94E2AE77A5EDC356C8" sap:content-version="1">
-                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_09D8F4460626FC94E2AE77A5EDC356C8"/>
-                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_XREGType" Multiplicity="*" Role="ToRole_assoc_09D8F4460626FC94E2AE77A5EDC356C8"/>
             </Association>
             <Association Name="assoc_ADE0167E2546184FF0C17EAD1118B487" sap:content-version="1">
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
@@ -154,18 +154,18 @@
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
                 <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_ESTADOType" Multiplicity="*" Role="ToRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
             </Association>
-            <Association Name="assoc_7C90C508E703253E5B02F2BFF8414784" sap:content-version="1">
-                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
-                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_HISTType" Multiplicity="*" Role="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
+            <Association Name="assoc_27B9979CDF98D6EB68B3C924EAA22050" sap:content-version="1">
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" Multiplicity="1" Role="FromRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
+                <End Type="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTASXDIAType" Multiplicity="*" Role="ToRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
             </Association>
             <EntityContainer Name="ZCDS_VENTAS_DASHBOARD_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZCDS_VENTASXDIA" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTASXDIAType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_VENTAS_DASHBOARDSet" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_VENTAS_DASHBOARD" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_DASHBOARDParameters" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_VENTAS_ESTADO" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_ESTADOType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_VENTAS_HIST" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_HISTType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_VENTAS_REcientes" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_REcientesType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_VENTAS_TOTALES" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_TOTALESType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <EntitySet Name="ZCDS_VENTAS_XREG" EntityType="ZCDS_VENTAS_DASHBOARD_CDS.ZCDS_VENTAS_XREGType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <AssociationSet Name="assoc_ADE0167E2546184FF0C17EAD1118B487" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_ADE0167E2546184FF0C17EAD1118B487" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
                     <End EntitySet="ZCDS_VENTAS_TOTALES" Role="ToRole_assoc_ADE0167E2546184FF0C17EAD1118B487"/>
@@ -178,13 +178,13 @@
                     <End EntitySet="ZCDS_VENTAS_DASHBOARD" Role="FromRole_assoc_437B6923660A217609F2881681CDB526"/>
                     <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="ToRole_assoc_437B6923660A217609F2881681CDB526"/>
                 </AssociationSet>
+                <AssociationSet Name="assoc_27B9979CDF98D6EB68B3C924EAA22050" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_27B9979CDF98D6EB68B3C924EAA22050" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
+                    <End EntitySet="ZCDS_VENTASXDIA" Role="ToRole_assoc_27B9979CDF98D6EB68B3C924EAA22050"/>
+                </AssociationSet>
                 <AssociationSet Name="assoc_7C90C508E703253E5B02F2BFF8414784" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_7C90C508E703253E5B02F2BFF8414784" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
                     <End EntitySet="ZCDS_VENTAS_HIST" Role="ToRole_assoc_7C90C508E703253E5B02F2BFF8414784"/>
-                </AssociationSet>
-                <AssociationSet Name="assoc_09D8F4460626FC94E2AE77A5EDC356C8" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_09D8F4460626FC94E2AE77A5EDC356C8" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_09D8F4460626FC94E2AE77A5EDC356C8"/>
-                    <End EntitySet="ZCDS_VENTAS_XREG" Role="ToRole_assoc_09D8F4460626FC94E2AE77A5EDC356C8"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_207461469B11053C9316AEF3235C5AEE" Association="ZCDS_VENTAS_DASHBOARD_CDS.assoc_207461469B11053C9316AEF3235C5AEE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZCDS_VENTAS_DASHBOARDSet" Role="FromRole_assoc_207461469B11053C9316AEF3235C5AEE"/>
@@ -243,6 +243,14 @@
                         <PropertyValue Property="RestrictedProperties">
                             <Collection>
                                 <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_ComparativoDays"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
                                     <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Historico"/>
                                     <PropertyValue Property="InsertRestrictions">
                                         <Record>
@@ -252,14 +260,6 @@
                                 </Record>
                                 <Record>
                                     <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Recientes"/>
-                                    <PropertyValue Property="InsertRestrictions">
-                                        <Record>
-                                            <PropertyValue Property="Insertable" Bool="false"/>
-                                        </Record>
-                                    </PropertyValue>
-                                </Record>
-                                <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_TopVentas"/>
                                     <PropertyValue Property="InsertRestrictions">
                                         <Record>
                                             <PropertyValue Property="Insertable" Bool="false"/>
