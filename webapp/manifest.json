@@ -131,7 +131,11 @@
 					"states.json",
           "mexicostatesCoordinates.json",
           "images/perrocara.ico",
-          "images/vendiendo.png"
+          "images/vendiendo.png",
+          "e_bike.png",
+          "motorbike.png",
+          "iphone.png",
+          "Arboard3.png"
 				]
 			}
 		}

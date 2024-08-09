@@ -129,6 +129,7 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
 .sapFCard{
     /* background: #29313A !important; */
     border-radius: 1rem !important;
+    box-shadow: none;
 }
 
 .sapMGTHdrTxt>.sapMText{
@@ -148,14 +149,24 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
 
 .valueMotos .sapMGTHdrIconImage {
     color: #FF5555 !important;
+    width: 4rem !important;
+    margin-top: -1rem;
+}
+
+.valueBicis .sapMGTHdrIconImage {
+    width: 3.5rem !important;
+}
+
+.valueiPhone .sapMGTHdrIconImage {
+    width: 3rem !important;
 }
 
 .valuePantallas .sapMGTHdrIconImage {
     color: #7fc6c6 !important;
 }
 
-.valueCelulares .sapMGTHdrIconImage {
-    color: #FABD64!important;
+.valueCelulares .sapFAvatarColorTransparent.sapFAvatarIcon, .sapFAvatarColorTransparent>.sapFAvatarInitialsHolder  {
+    color: #FABD64 !important;
 }
 
 .valuePrestamos .sapMGTHdrIconImage {
@@ -170,7 +181,6 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
     color: #B995E0 !important;
 }
 
--------------------------------
 .valueMotosNC  .sapMNCIconImage{
     color: #FF5555 !important;
 }
@@ -204,7 +214,7 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
 }
 
 .myHeadText{
-    font-size: 1.5rem;
+    font-size: 1.2rem !important;
 }
 
 /* .vbi-legend{ 
@@ -251,6 +261,7 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
 
 .sapMST {
     border-radius: 1rem;    
+    box-shadow: none;
 }
 
 .sapFCard .sapFCardContent {
@@ -284,4 +295,54 @@ html.sap-tablet .sapMDialog, html.sap-desktop .sapMDialog {
 
 .estadosTop {
     font-size: 1.2rem;
+}
+
+.mySlide .sapMGT.sapMGTGridContainerOneRemGap.TwoByHalf {
+    width: 17rem !important;
+}
+
+.headerHalf .TwoByHalf.sapMGT .sapMGTHdrContent {
+    line-height: none !important;
+    vertical-align: middle;
+    height: 0rem !important;
+}
+
+.TwoByHalf .sapMGTHdrContent {
+    height: 0rem;
+    padding-top: .4rem;
+}
+
+.TwoByHalf .sapMGTContent .sapMTileCnt .sapMTileCntContent {
+    height: 4.1rem;
+}
+
+.TwoByHalf .sapMGTContent {
+    height: 4.1rem !important;
+}
+.sapMGT {
+    box-shadow: none;
+}
+
+.sapFAvatarM {
+    font-size: 3.5rem;
+}
+
+.myNumber {
+    font-size: 2rem !important;
+    /* font-weight: bold; */
+}
+
+.myTitle{
+    font-size: 1.5rem;
+    /* font-weight: bold; */
+}
+
+.mySubTitle{
+    font-size: 1rem;
+    /* font-weight: bold; */
+}
+
+.myDate{
+    font-size: 1.2rem !important;
+    font-weight: bold;
 }

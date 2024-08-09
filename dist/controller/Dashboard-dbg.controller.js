@@ -7,6 +7,8 @@ sap.ui.define(
     "sap/ui/core/Fragment",
     "sap/ui/core/format/DateFormat",
     "sap/ui/core/format/NumberFormat",
+    "sap/viz/ui5/format/ChartFormatter",
+    "sap/ui/core/date/UI5Date",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -18,7 +20,9 @@ sap.ui.define(
     Device,
     Fragment,
     DateFormat,
-    NumberFormat
+    NumberFormat,
+    ChartFormatter,
+    UI5Date
   ) {
     "use strict";
     AnalyticMap.GeoJSONURL = "./map/Mexico.JSON";
@@ -44,29 +48,56 @@ sap.ui.define(
     var oCurrencyFormat = NumberFormat.getCurrencyInstance({
       decimalSeparator: ".",
       groupingSeparator: ",",
+      decimals: 0,
     });
+
+    // Fechas para consumir Servicios OData
+    var date = new Date();
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    // let year = "2023";
+
+    let hour = date.getHours();
+    let minuteH = date.getMinutes();
+    let secondsH = date.getSeconds();
+    var timeHigh = "PT" + hour + "H" + minuteH + "M" + "00S";
+    var dateHigh = year + "-" + month + "-" + day + "T00:00:00";
+    // var dateHigh = "2023-05-10T00:00:00";
+
+    var dateL = new Date(new Date() - 30000);
+    let hourL = dateL.getHours();
+    let minute = dateL.getMinutes();
+    let secondsL = dateL.getSeconds();
+
+    var timeLow = "PT" + hourL + "H" + minute + "M" + secondsL + "S";
+    var dateLow = year + "-" + month + "-" + day + "T00:00:00";
+    // var dateLow = "2024-08-05T00:00:00";
+
+    // Actualizar Horas
+    function updateTime() {
+      date = new Date();
+      hour = date.getHours();
+      minuteH = date.getMinutes();
+      secondsH = date.getSeconds();
+      timeHigh = "PT" + hour + "H" + minuteH + "M" + secondsH + "S";
+
+      dateL = new Date(new Date() - 30000);
+      hourL = dateL.getHours();
+      minute = dateL.getMinutes();
+      secondsL = dateL.getSeconds();
+      timeLow = "PT" + hourL + "H" + minute + "M" + secondsL + "S";
+      // timeLow = "PT18H42M00S";
+      // timeHigh = "PT18H43M00S";
+      oThis
+        .byId("Time")
+        .setText(hour + ":" + (minuteH < 10 ? "0" + minuteH : minuteH));
+    }
 
     // Consumir OData
     function odataConsume(oThis, iExpand) {
-      const date = new Date();
-
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let year = date.getFullYear();
-
-      let hour = date.getHours();
-      let minuteH = date.getMinutes();
-      let minute = minuteH - 1;
-
-      var dateLow = year + "-" + month + "-" + day + "T00:00:00";
-      var dateHigh = year + "-" + month + "-" + day + "T00:00:00";
-      var timeLow = "PT" + hour + "H" + minute + "M" + "00S";
-      var timeHigh = "PT" + hour + "H" + minuteH + "M" + "00S";
-      // var dateLow = "2023-05-10T00:00:00";
-      // var dateHigh = "2023-05-10T00:00:00";
-      // var timeLow = "PT12H08M00S";
-      // var timeHigh = "PT12H09M00S";
-
+      updateTime();
       var urlBase =
         "/ZCDS_VENTAS_DASHBOARD(p_date=datetime'" +
         dateLow +
@@ -88,7 +119,8 @@ sap.ui.define(
           $expand: lexpand,
         },
         success: function (oSuccess) {
-          fillTotales(oSuccess.results[0].to_Totales.results, oThis);
+          // fillTotales(oSuccess.results[0].to_Totales.results, oThis);
+          totalesBinding(oSuccess.results[0].to_Totales, oThis);
           //  Llenar estados que han registrado ventas
           fillEstatesWithSales(
             oSuccess.results[0].to_TotalesEstado.results,
@@ -111,6 +143,12 @@ sap.ui.define(
         error: function (oError) {},
       });
     }
+    // Llenar Totales con Binding
+    function totalesBinding(iData, oThis) {
+      var oScnModel = new JSONModel(iData);
+      oThis.byId("totalesBinding").setModel(oScnModel, "data");
+    }
+
     // Llenar Totales
     function fillTotales(iData, oThis) {
       var counter = 0;
@@ -133,8 +171,18 @@ sap.ui.define(
             element.Producto = element.Producto + "s";
             break;
           case "Motos":
-            lvIcon = "sap-icon://bus-public-transport";
+            // lvIcon = "sap-icon://bus-public-transport";
+            lvIcon = "images/motorbike.png";
             lvStyle = lvStyle + " valueMotos";
+            break;
+          case "Bicicleta":
+            lvIcon = "images/e_bike.png";
+            lvStyle = lvStyle + "valueBicis";
+            element.Producto = element.Producto + "s";
+            break;
+          case "iPhone":
+            lvIcon = "images/iphone.png";
+            lvStyle = lvStyle + "valueiPhone";
             break;
         }
         var lvIcon;
@@ -151,46 +199,47 @@ sap.ui.define(
           }),
         });
         loNew.addStyleClass(lvStyle);
-        if (len > 4) {
-          if (element.Producto in lDic) {
-            // Quitar comentario para agrupar Slides
-            lDic[element.Producto] = lDic[element.Producto].addTile(loNew);
-          } else {
-            lDic[element.Producto] = new sap.m.SlideTile();
-            var oLayout = new sap.f.GridContainerItemLayoutData();
-            oLayout.setColumns(4);
-            oLayout.setMinRows(2);
-            lDic[element.Producto].setLayoutData(oLayout);
-            lDic[element.Producto] = lDic[element.Producto].addTile(loNew);
-          }
-          if (counter == len) {
-            for (let key in lDic) {
-              oThis.byId("totalesProductos").addItem(lDic[key]);
-            }
-          }
-        } else {
-          var loSli = new sap.m.SlideTile();
-          var oLayout = new sap.f.GridContainerItemLayoutData();
-          oLayout.setColumns(4);
-          oLayout.setMinRows(2);
-          loSli.setLayoutData(oLayout);
-          loSli.addTile(loNew);
-          if (!gIds["totalesTop"]) {
-            oThis.byId("totalesProductos").addItem(loSli);
-            IDs.push(
-              oThis.byId("totalesProductos").getItems()[counter - 1].getId()
-            );
-          } else {
-            oThis
-              .byId("totalesProductos")
-              .getItems()
-              [counter - 1].removeAllTiles();
-            oThis
-              .byId("totalesProductos")
-              .getItems()
-              [counter - 1].addTile(loNew);
-          }
-        }
+        // if (len > 4) {
+        //   if (element.Producto in lDic) {
+        //     // Quitar comentario para agrupar Slides
+        //     lDic[element.Producto] = lDic[element.Producto].addTile(loNew);
+        //   } else {
+        //     lDic[element.Producto] = new sap.m.SlideTile();
+        //     var oLayout = new sap.f.GridContainerItemLayoutData();
+        //     oLayout.setColumns(4);
+        //     oLayout.setMinRows(2);
+        //     lDic[element.Producto].setLayoutData(oLayout);
+        //     lDic[element.Producto] = lDic[element.Producto].addTile(loNew);
+        //   }
+        //   if (counter == len) {
+        //     for (let key in lDic) {
+        //       oThis.byId("totalesProductos").addItem(lDic[key]);
+        //     }
+        //   }
+        // } else {
+        var loSli = new sap.m.SlideTile();
+        var oLayout = new sap.f.GridContainerItemLayoutData();
+        oLayout.setColumns(3);
+        oLayout.setMinRows(2);
+        loSli.setLayoutData(oLayout);
+        loSli.addStyleClass("mySlide");
+        loSli.addTile(loNew);
+        // if (!gIds["totalesTop"]) {
+        oThis.byId("totalesProductos").addItem(loSli);
+        IDs.push(
+          oThis.byId("totalesProductos").getItems()[counter - 1].getId()
+        );
+        // } else {
+        //   oThis
+        //     .byId("totalesProductos")
+        //     .getItems()
+        //     [counter - 1].removeAllTiles();
+        //   oThis
+        //     .byId("totalesProductos")
+        //     .getItems()
+        //     [counter - 1].addTile(loNew);
+        // }
+        // }
       });
       // gIds["totalesTop"] = IDs;
     }
@@ -232,9 +281,7 @@ sap.ui.define(
       // Llenar Legends del Mapa
       oThis
         .byId("legend02")
-        .setText(
-          iData.length + " estados registraron ventas en el último minuto"
-        );
+        .setText(iData.length + " estados registraron ventas recientemente");
     }
 
     function fillRecentCards(iData, oThis) {
@@ -281,16 +328,24 @@ sap.ui.define(
           switch (element.Producto) {
             case "Celulares":
               lvIcon = "sap-icon://iphone";
-              lvStyle = lvStyle + "valueCelularesNC";
+              // lvStyle = lvStyle + "valueCelularesNC";
               break;
             case "Préstamo":
               lvIcon = "sap-icon://loan";
-              lvStyle = lvStyle + "valuePrestamosNC";
+              // lvStyle = lvStyle + "valuePrestamosNC";
               element.Producto = element.Producto + "s";
               break;
             case "Motos":
-              lvIcon = "sap-icon://bus-public-transport";
-              lvStyle = lvStyle + "valueMotosNC";
+              lvIcon = "images/motorbike.png";
+              // lvStyle = lvStyle + "valueMotosNC";
+              break;
+            case "Bicicleta":
+              lvIcon = "images/e_bike.png";
+              // lvStyle = lvStyle + " valueBicis";
+              element.Producto = element.Producto + "s";
+              break;
+            case "Accesorio":
+              lvIcon = "sap-icon://headset";
               break;
           }
           var loNumeric = new sap.m.NumericContent({
@@ -376,14 +431,8 @@ sap.ui.define(
     // Llenar Estados Top
     function fillTopEstados(oThis, iData) {
       // Obtener los datos consultando el OData
-      const date = new Date();
-
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let year = date.getFullYear();
-      // var dateP = year + "-" + month + "-" + day + "T00:00:00";
-      var dateP = "2023-05-10T00:00:00";
-      var urlBase = "/ZCDS_TOPVENTASXREG(p_fecha=datetime'" + dateP + "')/Set";
+      var urlBase =
+        "/ZCDS_TOPVENTASXREG(p_fecha=datetime'" + dateLow + "')/Set";
       ODataModelTop.bCanonicalRequests = true;
       ODataModelTop.setUseBatch(false);
       ODataModelTop.read(urlBase, {
@@ -414,11 +463,21 @@ sap.ui.define(
 
     // Llenar gráfica de meses
     function fillMotnhsGraph(oThis) {
-      // Obtener los datos consultando el OData
-      const date = new Date();
-      let year = date.getFullYear();
-      // let year = "2023";
+      // Formato de Números
+      var oVizFrame = oThis.byId("idVizFrame");
+      var FIORI_PERCENTAGE_FORMAT_2 = "__UI5__PercentageMaxFraction2";
 
+      var chartFormatter = ChartFormatter.getInstance();
+      chartFormatter.registerCustomFormatter(
+        FIORI_PERCENTAGE_FORMAT_2,
+        function (value) {
+          return oCurrencyFormat.format(value);
+        }
+      );
+
+      //apply
+      sap.viz.ui5.api.env.Format.numericFormatter(chartFormatter);
+      // Obtener los datos consultando el OData
       var urlBase = "/ZCDS_VENTASXMES_SPLIT(p_anio='" + year + "')/Set";
       ODataModelGraph.bCanonicalRequests = true;
       ODataModelGraph.setUseBatch(false);
@@ -429,14 +488,21 @@ sap.ui.define(
         success: function (oSuccess) {
           var oScnModel = new JSONModel(oSuccess);
           oThis.byId("idVizFrame").setModel(oScnModel, "myModel");
+
+          // oThis.byId("totalesBinding").setModel(oScnModel, "data");
         },
         error: function (oError) {},
       });
     }
 
     return Controller.extend("geosales.geosales.controller.Dashboard", {
+      _data: {
+        date: UI5Date.getInstance(),
+      },
       onInit: function () {
         //  Obtener Fragment para usarlo como plantilla
+        var oModel = new JSONModel(this._data);
+        this.getView().setModel(oModel);
         oThis = this;
         odataConsume(
           oThis,
@@ -450,7 +516,68 @@ sap.ui.define(
             oThis,
             "to_Totales,to_Recientes,to_TotalesEstado,to_ComparativoDays"
           );
-        }, 60000);
+        }, 30000);
+      },
+      formatNumber: function (oNumber1) {
+        return sap.ui.core.format.NumberFormat.getPercentInstance({
+          style: "precent",
+          maxFractionDigits: 2,
+        }).format(oNumber1);
+      },
+      formatIcon: function (producto) {
+        var lvIcon = "";
+        switch (producto) {
+          case "Celulares":
+            lvIcon = "sap-icon://iphone";
+            break;
+          case "Préstamo":
+            lvIcon = "sap-icon://loan";
+            break;
+          case "Motos":
+            lvIcon = "images/motorbike.png";
+            break;
+          case "Bicicleta":
+            lvIcon = "images/e_bike.png";
+            break;
+          case "iPhone":
+            lvIcon = "images/iphone.png";
+            break;
+          case "Accesorio":
+            lvIcon = "sap-icon://headset";
+            break;
+        }
+        return lvIcon;
+      },
+
+      formatStyle: function (producto) {
+        var lvIcon = "";
+        switch (producto) {
+          case "Celulares":
+            lvIcon = "valueCelulares";
+            break;
+          case "Préstamo":
+            lvIcon = "valuePrestamos";
+            break;
+        }
+        return lvIcon;
+      },
+
+      formatProducto: function (producto) {
+        var lvIcon = "";
+        switch (producto) {
+          case "Bicicleta":
+            lvIcon = producto + "s";
+            break;
+          case "Préstamo":
+            lvIcon = producto + "s";
+            break;
+          case "Accesorio":
+            lvIcon = producto + "s";
+            break;
+          default:
+            lvIcon = producto;
+        }
+        return lvIcon;
       },
     });
   }
