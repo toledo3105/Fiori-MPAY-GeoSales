@@ -51,6 +51,11 @@ sap.ui.define(
       decimals: 0,
     });
 
+    var fechaDash = DateFormat.getDateInstance({
+      style: "long",
+      UTC: true,
+    });
+
     // Fechas para consumir Servicios OData
     var date = new Date();
 
@@ -500,6 +505,8 @@ sap.ui.define(
         date: UI5Date.getInstance(),
       },
       onInit: function () {
+        this.byId("FechaDash").setText(fechaDash.format(UI5Date.getInstance()));
+
         //  Obtener Fragment para usarlo como plantilla
         var oModel = new JSONModel(this._data);
         this.getView().setModel(oModel);
@@ -578,6 +585,36 @@ sap.ui.define(
             lvIcon = producto;
         }
         return lvIcon;
+      },
+
+      onSearch: function (oEvent) {
+        // obtener nueva Fecha
+        oThis
+          .byId("FechaDash")
+          .setText(
+            fechaDash.format(
+              oEvent.getParameters().selectionSet[0].mProperties.dateValue
+            )
+          );
+
+        let sDay = oEvent
+          .getParameters()
+          .selectionSet[0].mProperties.dateValue.getDate();
+        let sMonth =
+          oEvent
+            .getParameters()
+            .selectionSet[0].mProperties.dateValue.getMonth() + 1;
+        let sYear = oEvent
+          .getParameters()
+          .selectionSet[0].mProperties.dateValue.getFullYear();
+
+        dateLow = sYear + "-" + sMonth + "-" + sDay + "T00:00:00";
+        dateHigh = sYear + "-" + sMonth + "-" + sDay + "T00:00:00";
+
+        odataConsume(
+          oThis,
+          "to_Totales,to_Recientes,to_TotalesEstado,to_ComparativoDays"
+        );
       },
     });
   }

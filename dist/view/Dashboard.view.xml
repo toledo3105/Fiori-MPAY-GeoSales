@@ -1,5 +1,10 @@
-<mvc:View xmlns:cssgrid="sap.ui.layout.cssgrid" xmlns:core="sap.ui.core" xmlns:f="sap.f" controllerName="geosales.geosales.controller.Dashboard"
-    xmlns:mvc="sap.ui.core.mvc" 
+<mvc:View
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:cssgrid="sap.ui.layout.cssgrid"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    controllerName="geosales.geosales.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
     xmlns="sap.m"
     xmlns:vbm="sap.ui.vbm"
@@ -10,155 +15,334 @@
     xmlns:viz.data="sap.viz.ui5.data"
     xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
     xmlns:c="sap.suite.ui.commons"
-    xmlns:chart="sap.suite.ui.microchart">
-    <Page id="page" showHeader="false">
+    xmlns:chart="sap.suite.ui.microchart"
+>
+    <Page
+        id="page"
+        showHeader="false"
+    >
+        <fb:FilterBar
+            filterBarExpanded="false"
+            search=".onSearch"
+            showFilterConfiguration="false"
+        >
+            <fb:filterGroupItems>
+                <fb:FilterGroupItem
+                    name="GP1"
+                    label="Fecha"
+                    groupName="Group1"
+                    visibleInFilterBar="true"
+                >
+                    <fb:control>
+                        <DatePicker id="datePicker" />
+                    </fb:control>
+                </fb:FilterGroupItem>
+            </fb:filterGroupItems>
+        </fb:FilterBar>
         <ScrollContainer
-		height="100%"
-		width="100%"
-		vertical="true"
-        horizontal="false">                        
-        <VBox class="sapUiSmallMargin" width="100%" >
-            <!-- <f:GridContainer  id="totalesProductos" width="100%" visible="false">
+            height="100%"
+            width="100%"
+            vertical="true"
+            horizontal="false"
+        >
+            <VBox
+                class="sapUiSmallMargin"
+                width="100%"
+            >
+                <!-- <f:GridContainer  id="totalesProductos" width="100%" visible="false">
                
             </f:GridContainer> -->
-            <HBox width="100%" justifyContent="SpaceBetween" alignItems="Center">
-                <Image src="images/Artboard3.png" width="10rem"/>
-                <Text  text="{
-                    path : '/date',
-                    type : 'sap.ui.model.type.Date',
-                    formatOptions: {
-                        style : 'long'
-                    }
-                }" class="myDate"/>
-                <Text id="Time" text="" class="myDate sapUiMediumMarginEnd"/>
-            </HBox>
-            <f:GridContainer id="totalesBinding" visible="true" items="{data>/results}" >
+                <HBox
+                    width="100%"
+                    justifyContent="SpaceBetween"
+                    alignItems="Center"
+                >
+                    <Image
+                        src="images/Artboard3.png"
+                        width="10rem"
+                    />
+                    <Text
+                        id="FechaDash"
+                        text=""
+                        class="myDate"
+                    />
+                    <Text
+                        id="Time"
+                        text=""
+                        class="myDate sapUiMediumMarginEnd"
+                    />
+                </HBox>
+                <f:GridContainer
+                    id="totalesBinding"
+                    visible="true"
+                    items="{data>/results}"
+                >
                     <f:items>
-                        <GenericTile frameType="TwoByHalf" mode="ContentMode" >
+                        <GenericTile
+                            frameType="TwoByHalf"
+                            mode="ContentMode"
+                        >
                             <layoutData>
-                                <f:GridContainerItemLayoutData minRows="1" columns="4" />
+                                <f:GridContainerItemLayoutData
+                                    minRows="1"
+                                    columns="4"
+                                />
                             </layoutData>
-                            <TileContent class="headerHalf">                            
+                            <TileContent class="headerHalf">
                                 <content>
-                                    <HBox class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center" >
-                                        <Avatar src="{parts: [{ path: 'data>Producto' }], formatter: '.formatIcon'}" 
-                                                displaySize="M" displayShape="Square" backgroundColor="Transparent" />
-                                        <VBox >
-                                            <Title text="{parts: [{ path: 'data>Producto' }], formatter: '.formatProducto'}" textAlign="Center" class="myTitle"/>
-                                            <Text text="{data>tipo_venta}" class="mySubTitle"/>
+                                    <HBox
+                                        class="sapUiTinyMarginBegin"
+                                        justifyContent="SpaceBetween"
+                                        alignItems="Center"
+                                    >
+                                        <Avatar
+                                            src="{parts: [{ path: 'data>Producto' }], formatter: '.formatIcon'}"
+                                            displaySize="M"
+                                            displayShape="Square"
+                                            backgroundColor="Transparent"
+                                        />
+                                        <VBox>
+                                            <Title
+                                                text="{parts: [{ path: 'data>Producto' }], formatter: '.formatProducto'}"
+                                                textAlign="Center"
+                                                class="myTitle"
+                                            />
+                                            <Text
+                                                text="{data>tipo_venta}"
+                                                class="mySubTitle"
+                                            />
                                         </VBox>
-                                        <VBox justifyContent="Center" alignItems="Center">
-                                            <Title text="{data>total}" class="myNumber"/>
-                                        </VBox>                                    
+                                        <VBox
+                                            justifyContent="Center"
+                                            alignItems="Center"
+                                        >
+                                            <Title
+                                                text="{data>total}"
+                                                class="myNumber"
+                                            />
+                                        </VBox>
                                     </HBox>
-                                </content>                            
+                                </content>
                             </TileContent>
-                           </GenericTile>   
-                    </f:items>                                                      
-            </f:GridContainer>
-            <f:GridContainer width="100%" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
-                <f:Card id="cardMap" width="100%" height="100%" >        
-                    <f:layoutData>
-                        <f:GridContainerItemLayoutData minRows="6" columns="8" />
-                    </f:layoutData>                                         
-                    <f:content>
-                        <l:FixFlex >
-                            <l:fixContent >
-                                <vbm:AnalyticMap id="vbi" centerPosition="0;0" width="100%"                 
-                                initialPosition="-101;24;0" initialZoom="5" disableZoom="true" disablePan="true"
-                                regionClick="onRegionClick" regionContextMenu="onRegionContextMenu">
-                                <vbm:regions>
-                                    <vbm:Region code="{code}" color="{color}"  tooltip="{country}"/>
-                                </vbm:regions>
-                                <vbm:legend>
-                                    <vbm:Legend caption="Resumen de Ventas" >                       
-                                    <vbm:items>                           
-                                            <vbm:LegendItem id="legend01" text=""  color="#1b7eac"></vbm:LegendItem>
-                                            <vbm:LegendItem id="legend02" text=""  color="#F1B434"></vbm:LegendItem>
-                                    </vbm:items>
-                                    </vbm:Legend>
-                                </vbm:legend>	                               
-                                <vbm:vos >
-                                    <vbm:Spots >
-                                     
-                                    </vbm:Spots>
-                                </vbm:vos>
-                                </vbm:AnalyticMap>
-                            </l:fixContent>
-                        </l:FixFlex>
-                    </f:content>
-                </f:Card>
-                <VBox visible="true" class="flex1" fitContainer="true">
-                    <layoutData>
-                        <f:GridContainerItemLayoutData minRows="4" columns="2" />
-                    </layoutData>
-                    <f:Card id="sinVentasTile"  visible="false" >                                               
+                        </GenericTile>
+                    </f:items>
+                </f:GridContainer>
+                <f:GridContainer
+                    width="100%"
+                    class="sapUiSmallMarginTop sapUiSmallMarginBottom"
+                >
+                    <f:Card
+                        id="cardMap"
+                        width="100%"
+                        height="100%"
+                    >
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="6"
+                                columns="8"
+                            />
+                        </f:layoutData>
                         <f:content>
-                            <VBox alignItems="Center"   justifyContent="Center">
-                                <Title text="Esperando ventas" textAlign="Center" class="myHeadText sapUiSmallMargin"/>
-                                <!-- <Text text="Tiendas trabajando" class="sapUiTinyMarginBottom" textAlign="Center" /> -->
-                                <Avatar src="images/vendiendo.png" displaySize="XL" displayShape="Square" class="sapUiTinyMarginTopBottom"/>                                
-                                <Text text="No hay ventas recientes" class="sapUiSmallMargin" textAlign="Center" />
-                            </VBox>                            
-                        </f:content>                                                
-                    </f:Card>     
-                    <VBox id="listRecientes" visible="true" width="100%" fitContainer="true">
-                        
-                    </VBox>
-                </VBox>                               
-                <VBox width="100%" >
-                    <layoutData>
-                        <f:GridContainerItemLayoutData minRows="2" columns="4" />
-                    </layoutData>
-                    <f:Card class="cardTotales">
-                        <f:layoutData>
-                            <f:GridContainerItemLayoutData minRows="2" columns="4" />
-                        </f:layoutData>
-                        <f:header>
-                            <card:Header  title="Total de ventas" subtitle="Comparativa contra el mismo día del año anterior" />
-                        </f:header>
-                        <f:content>                                        
-                            <HBox>     
-                                <chart:HarveyBallMicroChart id="ballChart1" size="L"  totalScale="" class="sapUiLargeMarginTopBottom sapUiSmallMarginBegin ">
-                                    <chart:HarveyBallMicroChartItem id="ballChart2" color="Good" fractionScale=""/>
-                                </chart:HarveyBallMicroChart>                                   
-                                <VBox class="sapUiSmallMarginTop">
-                                    <HBox alignItems="Center"   justifyContent="Center" class="sapUiLargeMarginTop">
-                                        <core:Icon src="sap-icon://color-fill" color="#3fa45b" />
-                                        <Text id="fechaBall1" class="sapUiSmallMarginBegin" />
-                                    </HBox> 
-                                    <HBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
-                                        <core:Icon src="sap-icon://color-fill" />
-                                        <Text id="fechaBall2" class="sapUiSmallMarginBegin" />
-                                    </HBox>     
-                                </VBox>                                            
-                            </HBox>                              
-                        </f:content>
-                    </f:Card>   
-                    <f:Card class="sapUiSmallMarginTop cardTotales">
-                        <f:layoutData>
-                            <f:GridContainerItemLayoutData minRows="2" columns="4" />
-                        </f:layoutData>
-                        <f:header>
-                            <card:Header title="Estados Top en ventas" />
-                        </f:header>
-                        <f:content>                                               
-                            <VBox class="sapUiSmallMargin">
-                                <chart:InteractiveBarChart id="topEstados" displayedBars="5">
-                                    <chart:bars>
-                                       
-                                    </chart:bars>
-                                </chart:InteractiveBarChart>                               
-                            </VBox>                              
+                            <l:FixFlex>
+                                <l:fixContent>
+                                    <vbm:AnalyticMap
+                                        id="vbi"
+                                        centerPosition="0;0"
+                                        width="100%"
+                                        initialPosition="-101;24;0"
+                                        initialZoom="5"
+                                        disableZoom="true"
+                                        disablePan="true"
+                                        regionClick="onRegionClick"
+                                        regionContextMenu="onRegionContextMenu"
+                                    >
+                                        <vbm:regions>
+                                            <vbm:Region
+                                                code="{code}"
+                                                color="{color}"
+                                                tooltip="{country}"
+                                            />
+                                        </vbm:regions>
+                                        <vbm:legend>
+                                            <vbm:Legend
+                                                caption="Resumen de Ventas"
+                                            >
+                                                <vbm:items>
+                                                    <vbm:LegendItem
+                                                        id="legend01"
+                                                        text=""
+                                                        color="#1b7eac"
+                                                    />
+                                                    <vbm:LegendItem
+                                                        id="legend02"
+                                                        text=""
+                                                        color="#F1B434"
+                                                    />
+                                                </vbm:items>
+                                            </vbm:Legend>
+                                        </vbm:legend>
+                                        <vbm:vos>
+                                            <vbm:Spots />
+                                        </vbm:vos>
+                                    </vbm:AnalyticMap>
+                                </l:fixContent>
+                            </l:FixFlex>
                         </f:content>
                     </f:Card>
-                </VBox>
-                <f:Card id="cardMeses" width="100%" height="100%" >        
-                    <f:layoutData>
-                        <f:GridContainerItemLayoutData minRows="6" columns="5" />
-                    </f:layoutData>
-                    <f:content>
-                        <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='stacked_bar' vizProperties="{ 
+                    <VBox
+                        visible="true"
+                        class="flex1"
+                        fitContainer="true"
+                    >
+                        <layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="4"
+                                columns="2"
+                            />
+                        </layoutData>
+                        <f:Card
+                            id="sinVentasTile"
+                            visible="false"
+                        >
+                            <f:content>
+                                <VBox
+                                    alignItems="Center"
+                                    justifyContent="Center"
+                                >
+                                    <Title
+                                        text="Esperando ventas"
+                                        textAlign="Center"
+                                        class="myHeadText sapUiSmallMargin"
+                                    />
+                                    <!-- <Text text="Tiendas trabajando" class="sapUiTinyMarginBottom" textAlign="Center" /> -->
+                                    <Avatar
+                                        src="images/vendiendo.png"
+                                        displaySize="XL"
+                                        displayShape="Square"
+                                        class="sapUiTinyMarginTopBottom"
+                                    />
+                                    <Text
+                                        text="No hay ventas recientes"
+                                        class="sapUiSmallMargin"
+                                        textAlign="Center"
+                                    />
+                                </VBox>
+                            </f:content>
+                        </f:Card>
+                        <VBox
+                            id="listRecientes"
+                            visible="true"
+                            width="100%"
+                            fitContainer="true"
+                        />
+                    </VBox>
+                    <VBox width="100%">
+                        <layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="2"
+                                columns="4"
+                            />
+                        </layoutData>
+                        <f:Card class="cardTotales">
+                            <f:layoutData>
+                                <f:GridContainerItemLayoutData
+                                    minRows="2"
+                                    columns="4"
+                                />
+                            </f:layoutData>
+                            <f:header>
+                                <card:Header
+                                    title="Total de ventas"
+                                    subtitle="Comparativa contra el mismo día del año anterior"
+                                />
+                            </f:header>
+                            <f:content>
+                                <HBox>
+                                    <chart:HarveyBallMicroChart
+                                        id="ballChart1"
+                                        size="L"
+                                        totalScale=""
+                                        class="sapUiLargeMarginTopBottom sapUiSmallMarginBegin "
+                                    >
+                                        <chart:HarveyBallMicroChartItem
+                                            id="ballChart2"
+                                            color="Good"
+                                            fractionScale=""
+                                        />
+                                    </chart:HarveyBallMicroChart>
+                                    <VBox class="sapUiSmallMarginTop">
+                                        <HBox
+                                            alignItems="Center"
+                                            justifyContent="Center"
+                                            class="sapUiLargeMarginTop"
+                                        >
+                                            <core:Icon
+                                                src="sap-icon://color-fill"
+                                                color="#3fa45b"
+                                            />
+                                            <Text
+                                                id="fechaBall1"
+                                                class="sapUiSmallMarginBegin"
+                                            />
+                                        </HBox>
+                                        <HBox
+                                            alignItems="Center"
+                                            justifyContent="Center"
+                                            class="sapUiSmallMarginTop"
+                                        >
+                                            <core:Icon
+                                                src="sap-icon://color-fill"
+                                            />
+                                            <Text
+                                                id="fechaBall2"
+                                                class="sapUiSmallMarginBegin"
+                                            />
+                                        </HBox>
+                                    </VBox>
+                                </HBox>
+                            </f:content>
+                        </f:Card>
+                        <f:Card class="sapUiSmallMarginTop cardTotales">
+                            <f:layoutData>
+                                <f:GridContainerItemLayoutData
+                                    minRows="2"
+                                    columns="4"
+                                />
+                            </f:layoutData>
+                            <f:header>
+                                <card:Header title="Estados Top en ventas" />
+                            </f:header>
+                            <f:content>
+                                <VBox class="sapUiSmallMargin">
+                                    <chart:InteractiveBarChart
+                                        id="topEstados"
+                                        displayedBars="5"
+                                    >
+                                        <chart:bars />
+                                    </chart:InteractiveBarChart>
+                                </VBox>
+                            </f:content>
+                        </f:Card>
+                    </VBox>
+                    <f:Card
+                        id="cardMeses"
+                        width="100%"
+                        height="100%"
+                    >
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="6"
+                                columns="5"
+                            />
+                        </f:layoutData>
+                        <f:content>
+                            <viz:VizFrame
+                                id="idVizFrame"
+                                uiConfig="{applicationSet:'fiori'}"
+                                height='100%'
+                                width="100%"
+                                vizType='stacked_bar'
+                                vizProperties="{ 
                             plotArea: {
                                 dataLabel: {                                                                                                                
                                     visible: true,
@@ -181,29 +365,52 @@
                             }
                            
                           }"
-                          >
-                            <viz:dataset >
-                              <viz.data:FlattenedDataset data="{myModel>/results}" >
-                                <viz.data:dimensions>
-                                    <viz.data:DimensionDefinition name="Nombre_Mes" value="{Nombre_Mes}" />
-                                    <viz.data:DimensionDefinition name="Anio" value="{Anio}"/>
-                                </viz.data:dimensions>
-                                <viz.data:measures>
-                                    <viz.data:MeasureDefinition name="Ventas" value="{Ventas}"/>                                  
-                                </viz.data:measures>
-                              </viz.data:FlattenedDataset>
-                            </viz:dataset>
-                        
-                            <viz:feeds>
-                                <viz.feeds:FeedItem uid="valueAxis"    type="Measure"   values="Ventas" />
-                                <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Nombre_Mes" />
-                                <viz.feeds:FeedItem uid="color" type="Dimension" values="Anio" />
-                            </viz:feeds>                          
-                        </viz:VizFrame>
-                    </f:content>
-                </f:Card>   
-            </f:GridContainer>
-            <!-- <f:GridContainer width="100%">
+                            >
+                                <viz:dataset>
+                                    <viz.data:FlattenedDataset
+                                        data="{myModel>/results}"
+                                    >
+                                        <viz.data:dimensions>
+                                            <viz.data:DimensionDefinition
+                                                name="Nombre_Mes"
+                                                value="{Nombre_Mes}"
+                                            />
+                                            <viz.data:DimensionDefinition
+                                                name="Anio"
+                                                value="{Anio}"
+                                            />
+                                        </viz.data:dimensions>
+                                        <viz.data:measures>
+                                            <viz.data:MeasureDefinition
+                                                name="Ventas"
+                                                value="{Ventas}"
+                                            />
+                                        </viz.data:measures>
+                                    </viz.data:FlattenedDataset>
+                                </viz:dataset>
+
+                                <viz:feeds>
+                                    <viz.feeds:FeedItem
+                                        uid="valueAxis"
+                                        type="Measure"
+                                        values="Ventas"
+                                    />
+                                    <viz.feeds:FeedItem
+                                        uid="categoryAxis"
+                                        type="Dimension"
+                                        values="Nombre_Mes"
+                                    />
+                                    <viz.feeds:FeedItem
+                                        uid="color"
+                                        type="Dimension"
+                                        values="Anio"
+                                    />
+                                </viz:feeds>
+                            </viz:VizFrame>
+                        </f:content>
+                    </f:Card>
+                </f:GridContainer>
+                <!-- <f:GridContainer width="100%">
                <HBox fitContainer="true">
                    <f:Card >
                         <f:content>
@@ -217,5 +424,5 @@
             </f:GridContainer>                 -->
             </VBox>
         </ScrollContainer>
-    </Page>   
+    </Page>
 </mvc:View>
